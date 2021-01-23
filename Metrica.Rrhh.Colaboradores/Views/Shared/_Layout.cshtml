@@ -1,0 +1,126 @@
+﻿@using Metrica.Rrhh.Colaboradores.Entity.Model
+<!DOCTYPE html>
+<html lang="es-pe">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="all,follow">
+    <title>@ViewBag.Title - Recursos Humanos</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+</head>
+<body>
+    <div class="page">
+        <header class="header">
+            <nav class="navbar">
+                <div class="search-box">
+                    <button class="dismiss"><i class="icon-close"></i></button>
+                    <form id="searchForm" action="#" role="search">
+                        <input type="search" placeholder="Hola @(((UsuarioModel)Session["Usuario"]).Nombres), que puedo hacer por ti" class="form-control">
+                    </form>
+                </div>
+                <div class="container-fluid">
+                    <div class="navbar-holder d-flex align-items-center justify-content-between">
+                        <!-- Navbar Header-->
+                        <div class="navbar-header">
+                            <a href='@Url.Action("Index", "Home")' class="navbar-brand">
+                                <div class="brand-text brand-big"><span>Recursos </span><strong>Humanos</strong></div>
+                                <div class="brand-text brand-small"><strong>Outcoding</strong></div>
+                            </a>
+                            <a id="toggle-btn" href="#" class="menu-btn active"><span></span><span></span><span></span></a>
+                        </div>
+                        <!-- Navbar Menu -->
+                        <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+                            <!-- Search-->
+                            <li class="nav-item d-flex align-items-center"><a id="search" href="#"><i class="icon-search"></i></a></li>
+                            <!-- Notifications-->
+                            <li class="nav-item dropdown">
+                                <a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-bell-o"></i><span class="badge bg-red">@Session["NroNotificaciones"]</span></a>
+                                <ul aria-labelledby="notifications" class="dropdown-menu">
+                                    <li>
+                                        <a rel="nofollow" href="#" class="dropdown-item">
+                                            <div class="notification">
+                                                <div class="notification-content"><i class="fa fa-envelope bg-green"></i>You have 6 new messages </div>
+                                                <div class="notification-time"><small>4 minutes ago</small></div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong>ver todas</strong></a></li>
+                                </ul>
+                            </li>
+                            <!-- Logout    -->
+                            <li class="nav-item"><a href='@Url.Action("CerrarSesion","Seguridad")' class="nav-link logout">Cerrar sesión<i class="fa fa-sign-out"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="page-content d-flex align-items-stretch">
+            <nav class="side-navbar">
+                @{Html.RenderPartial("_Menu");}
+            </nav>
+            <div class="content-inner">
+                <!-- Page Header-->
+                <header class="page-header">
+                    <div class="container-fluid">
+                        <h2 class="no-margin-bottom">@ViewBag.Title</h2>
+                    </div>
+                </header>
+                <!-- Dashboard Counts Section-->
+                <section class="dashboard-counts no-padding-bottom">
+                    <div class="container-fluid" style="padding-left:10px; padding-right:10px;">
+                        @RenderBody()
+                    </div>
+                </section>
+                <!-- Page Footer-->
+                <footer class="main-footer">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <p>&copy; @DateTime.Now.Year - Outcoding</p>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+    @*<div id="particles"></div>*@
+    <div id="loading">
+        <div id="loadingcontent">
+            <div id="loader">
+            </div>
+            <span>Procesando...</span>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/principal")
+    @Scripts.Render("~/bundles/candidato")
+    @RenderSection("scripts", required: false)
+    <style type="text/css">
+        .alert-error {
+            background-color: red !important;
+            -webkit-box-shadow: inset 0px 1px rgba(255, 255, 255, 0.13), inset 48px 0px 0px red !important;
+            -moz-box-shadow: inset 0px 1px rgba(255, 255, 255, 0.13), inset 48px 0px 0px red !important;
+            box-shadow: inset 0px 1px rgba(255, 255, 255, 0.13), inset 48px 0px 0px red !important;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            activar_menu(@Html.IdMenuActivo());
+
+        });
+    </script>
+    @if (TempData["mensaje"] != null)
+    {
+        <script>
+            mostrar_msg('@TempData["mensaje"]', '@TempData["tipo_mensaje"]');
+        </script>
+    }
+
+</body>
+</html>

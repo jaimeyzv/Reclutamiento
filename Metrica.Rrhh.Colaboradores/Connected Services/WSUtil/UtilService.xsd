@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://MetricaAndina/Colaboradores/IUtilService" elementFormDefault="qualified" targetNamespace="http://MetricaAndina/Colaboradores/IUtilService" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:19560/UtilService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Metrica.Rrhh.Colaboradores.Entity.DTO" />
+  <xs:element name="ListarEstadoXDominio">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="dominio" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ListarEstadoXDominioResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Metrica.Rrhh.Colaboradores.Entity.DTO" minOccurs="0" name="ListarEstadoXDominioResult" nillable="true" type="q1:ArrayOfItemDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ListarSkillTecnico">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idPuesto" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ListarSkillTecnicoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Metrica.Rrhh.Colaboradores.Entity.DTO" minOccurs="0" name="ListarSkillTecnicoResult" nillable="true" type="q2:ArrayOfItemDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ListarDistritos">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ubigeo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ListarDistritosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Metrica.Rrhh.Colaboradores.Entity.DTO" minOccurs="0" name="ListarDistritosResult" nillable="true" type="q3:ArrayOfItemDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

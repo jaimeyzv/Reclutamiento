@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="2e1cfa66-2cd7-4231-a378-51f4127f162f" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:19560/CandidatoService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="CandidatoService.wsdl" MetadataType="Wsdl" ID="09319029-801f-49ec-aa7b-321e5a669f1a" SourceId="1" SourceUrl="http://localhost:19560/CandidatoService.svc?wsdl" />
+    <MetadataFile FileName="CandidatoService.xsd" MetadataType="Schema" ID="578b97b1-1029-41b7-8efc-256bd7211fe7" SourceId="1" SourceUrl="http://localhost:19560/CandidatoService.svc?xsd=xsd3" />
+    <MetadataFile FileName="CandidatoService1.wsdl" MetadataType="Wsdl" ID="0574061f-102e-433c-b608-8bd4dcf2582a" SourceId="1" SourceUrl="http://localhost:19560/CandidatoService.svc?wsdl=wsdl0" />
+    <MetadataFile FileName="CandidatoService1.xsd" MetadataType="Schema" ID="ed8355c4-6216-48bc-9edd-e3b1538941d5" SourceId="1" SourceUrl="http://localhost:19560/CandidatoService.svc?xsd=xsd0" />
+    <MetadataFile FileName="CandidatoService2.xsd" MetadataType="Schema" ID="9ddf34f8-279f-44a5-a9da-ffdf36628e19" SourceId="1" SourceUrl="http://localhost:19560/CandidatoService.svc?xsd=xsd2" />
+    <MetadataFile FileName="CandidatoService.disco" MetadataType="Disco" ID="644a6941-48df-4f1c-83a7-3e9a339953ff" SourceId="1" SourceUrl="http://localhost:19560/CandidatoService.svc?disco" />
+    <MetadataFile FileName="CandidatoService3.xsd" MetadataType="Schema" ID="bf8dd600-b18b-4b37-924b-8e064a4d532b" SourceId="1" SourceUrl="http://localhost:19560/CandidatoService.svc?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

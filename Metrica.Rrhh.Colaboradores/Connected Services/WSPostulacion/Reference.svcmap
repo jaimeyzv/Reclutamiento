@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="8f3a318e-3752-4bac-92c4-04128ad3b8c2" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:19560/PostulacionService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="PostulacionService.wsdl" MetadataType="Wsdl" ID="3054f951-09d6-420b-b32b-04971cd1a97e" SourceId="1" SourceUrl="http://localhost:19560/PostulacionService.svc?wsdl=wsdl0" />
+    <MetadataFile FileName="PostulacionService1.wsdl" MetadataType="Wsdl" ID="0e202ab8-c8f8-4d9e-a712-698f03bc080d" SourceId="1" SourceUrl="http://localhost:19560/PostulacionService.svc?wsdl" />
+    <MetadataFile FileName="PostulacionService.xsd" MetadataType="Schema" ID="6e41d853-05be-4268-959d-f5886acd275d" SourceId="1" SourceUrl="http://localhost:19560/PostulacionService.svc?xsd=xsd2" />
+    <MetadataFile FileName="PostulacionService1.xsd" MetadataType="Schema" ID="e9f006bd-a97b-4963-bf7c-e2b94efb9360" SourceId="1" SourceUrl="http://localhost:19560/PostulacionService.svc?xsd=xsd3" />
+    <MetadataFile FileName="PostulacionService2.xsd" MetadataType="Schema" ID="c88bb320-a7fe-48e3-b4d5-f16649634f24" SourceId="1" SourceUrl="http://localhost:19560/PostulacionService.svc?xsd=xsd0" />
+    <MetadataFile FileName="PostulacionService.disco" MetadataType="Disco" ID="203d25bc-76a9-4b32-8043-2d82e5eadc21" SourceId="1" SourceUrl="http://localhost:19560/PostulacionService.svc?disco" />
+    <MetadataFile FileName="PostulacionService3.xsd" MetadataType="Schema" ID="a7dbcd90-91e2-41d5-94e9-ecff774b6dfe" SourceId="1" SourceUrl="http://localhost:19560/PostulacionService.svc?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+
+<html lang="es-pe">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>@ViewBag.Title - Recursos Humanos</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <!-- Google fonts - Poppins -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+</head>
+<body>
+    <div class="page login-page" style="border-top: 4px solid #000;">
+        <div class="container d-flex align-items-center">
+            <div class="form-holder has-shadow">
+                <div class="row">
+                    <!-- Logo -->
+                    <div class="col-lg-6">
+                        <div class="info d-flex align-items-center">
+                            <div class="content">
+                                <div class="logo">
+                                    @{Html.RenderPartial("_Logo");}
+                                </div>
+                                <p>Ingreses sus credenciales para acceder al sistema.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Login Form   -->
+                    <div class="col-lg-6 bg-white">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyrights text-center">
+            <p>
+                &copy; @DateTime.Now.Year - Outcoding
+            </p>
+        </div>
+    </div>
+    <div id="particles"></div>
+
+    <div id="loading">
+        <div id="loadingcontent">
+            <div id="loader">
+            </div>
+            <span>Procesando...</span>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/principal")
+    @RenderSection("scripts", required: false)
+    <script>
+        $(document).ready(function () {
+            cargar_animacion();
+            //prueba_notificacion();
+        });
+
+        function prueba_notificacion() {
+            if (Notification) {
+                if (Notification.permission !== "granted") {
+                    Notification.requestPermission()
+                }
+                var title = "Outcoding"
+                var extra = {
+                    icon: "https://3vbi0f1s2xof2cneu737voox-wpengine.netdna-ssl.com/wp-content/uploads/2018/12/FaviconEx2.png",
+                    body: "Bienvenido al sistema de Recursos Humanos"
+                }
+                var noti = new Notification(title, extra)
+                //noti.onclick = function () {
+                //    window.focus();
+                //    this.cancel();
+                //};
+                setTimeout(function () { noti.close() }, 10000)
+            }
+        }
+    </script>
+</body>
+</html>

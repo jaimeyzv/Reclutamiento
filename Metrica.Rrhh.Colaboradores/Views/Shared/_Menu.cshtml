@@ -1,0 +1,36 @@
+﻿@using Metrica.Rrhh.Colaboradores.Entity.Model
+@{ var usuario = Session["Usuario"] as UsuarioModel;
+    var menu = usuario.Accesos;
+}
+<!-- Sidebar Header-->
+<div class="sidebar-header d-flex align-items-center">
+    <div class="avatar"><img src="~/Content/img/@(!usuario.EsUPC? "p1.jpg" : "upc.png")" alt="..." class="img-fluid rounded-circle" style="width:  55px;height:  55px;"/></div>
+    <div class="title">
+        <h1 class="h4">@usuario.Nombres.Split(' ')[0] @usuario.ApellidoPaterno</h1>
+        <p>@usuario.Perfil.Descripcion</p>
+    </div>
+</div>
+<!-- Sidebar Navidation Menus-->
+<span class="heading">Principal</span>
+<ul class="list-unstyled">
+    @foreach (var item in menu.Where(x => x.IdPaginaPadre == 0))
+    {
+        var subIetm = menu.Where(m => m.IdPaginaPadre == item.IdPagina).ToList();
+        if (subIetm.Count > 0)
+        {
+            <li>
+                <a href="#@item.IdPagina" aria-expanded="true" data-toggle="collapse"> <i class="@item.Icono"></i>@item.Titulo</a>
+                <ul id="@item.IdPagina" class="in collapse list-unstyled show">
+                    @foreach (var isub in subIetm)
+                    {
+                        <li><a href='@Url.Action(isub.Accion, isub.Controlador)' onclick="click_menu();" id="@isub.Controlador@isub.Accion"><i class="@isub.Icono"></i>@isub.Titulo</a></li>
+                    }
+                </ul>
+            </li>
+        }
+        else
+        {
+            <li><a href='@Url.Action(item.Accion, item.Controlador)' onclick="click_menu();" id="@item.Controlador@item.Accion"><i class="@item.Icono"></i>@item.Titulo</a></li>
+        }
+    }
+</ul>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://MetricaAndina/Colaboradores/IUtilService" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://MetricaAndina/Colaboradores/IUtilService" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://MetricaAndina/Colaboradores/IUtilService/Imports">
+      <xsd:import schemaLocation="http://localhost:19560/UtilService.svc?xsd=xsd0" namespace="http://MetricaAndina/Colaboradores/IUtilService" />
+      <xsd:import schemaLocation="http://localhost:19560/UtilService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Metrica.Rrhh.Colaboradores.Service.Extension" />
+      <xsd:import schemaLocation="http://localhost:19560/UtilService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:19560/UtilService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Metrica.Rrhh.Colaboradores.Entity.DTO" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IUtilService_ListarEstadoXDominio_InputMessage">
+    <wsdl:part name="parameters" element="tns:ListarEstadoXDominio" />
+  </wsdl:message>
+  <wsdl:message name="IUtilService_ListarEstadoXDominio_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ListarEstadoXDominioResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUtilService_ListarEstadoXDominio_FaultDTOFault_FaultMessage">
+    <wsdl:part xmlns:q1="http://schemas.datacontract.org/2004/07/Metrica.Rrhh.Colaboradores.Service.Extension" name="detail" element="q1:FaultDTO" />
+  </wsdl:message>
+  <wsdl:message name="IUtilService_ListarSkillTecnico_InputMessage">
+    <wsdl:part name="parameters" element="tns:ListarSkillTecnico" />
+  </wsdl:message>
+  <wsdl:message name="IUtilService_ListarSkillTecnico_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ListarSkillTecnicoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUtilService_ListarSkillTecnico_FaultDTOFault_FaultMessage">
+    <wsdl:part xmlns:q2="http://schemas.datacontract.org/2004/07/Metrica.Rrhh.Colaboradores.Service.Extension" name="detail" element="q2:FaultDTO" />
+  </wsdl:message>
+  <wsdl:message name="IUtilService_ListarDistritos_InputMessage">
+    <wsdl:part name="parameters" element="tns:ListarDistritos" />
+  </wsdl:message>
+  <wsdl:message name="IUtilService_ListarDistritos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ListarDistritosResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUtilService_ListarDistritos_FaultDTOFault_FaultMessage">
+    <wsdl:part xmlns:q3="http://schemas.datacontract.org/2004/07/Metrica.Rrhh.Colaboradores.Service.Extension" name="detail" element="q3:FaultDTO" />
+  </wsdl:message>
+  <wsdl:portType name="IUtilService">
+    <wsdl:operation name="ListarEstadoXDominio">
+      <wsdl:input wsaw:Action="http://MetricaAndina/Colaboradores/IUtilService/IUtilService/ListarEstadoXDominio" message="tns:IUtilService_ListarEstadoXDominio_InputMessage" />
+      <wsdl:output wsaw:Action="http://MetricaAndina/Colaboradores/IUtilService/IUtilService/ListarEstadoXDominioResponse" message="tns:IUtilService_ListarEstadoXDominio_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://MetricaAndina/Colaboradores/IUtilService/IUtilService/ListarEstadoXDominioFaultDTOFault" name="FaultDTOFault" message="tns:IUtilService_ListarEstadoXDominio_FaultDTOFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ListarSkillTecnico">
+      <wsdl:input wsaw:Action="http://MetricaAndina/Colaboradores/IUtilService/IUtilService/ListarSkillTecnico" message="tns:IUtilService_ListarSkillTecnico_InputMessage" />
+      <wsdl:output wsaw:Action="http://MetricaAndina/Colaboradores/IUtilService/IUtilService/ListarSkillTecnicoResponse" message="tns:IUtilService_ListarSkillTecnico_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://MetricaAndina/Colaboradores/IUtilService/IUtilService/ListarSkillTecnicoFaultDTOFault" name="FaultDTOFault" message="tns:IUtilService_ListarSkillTecnico_FaultDTOFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ListarDistritos">
+      <wsdl:input wsaw:Action="http://MetricaAndina/Colaboradores/IUtilService/IUtilService/ListarDistritos" message="tns:IUtilService_ListarDistritos_InputMessage" />
+      <wsdl:output wsaw:Action="http://MetricaAndina/Colaboradores/IUtilService/IUtilService/ListarDistritosResponse" message="tns:IUtilService_ListarDistritos_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://MetricaAndina/Colaboradores/IUtilService/IUtilService/ListarDistritosFaultDTOFault" name="FaultDTOFault" message="tns:IUtilService_ListarDistritos_FaultDTOFault_FaultMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

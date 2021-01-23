@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="511ece5f-bea3-47e2-8509-ba7ab133429f" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:19560/RequerimientoService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="RequerimientoService.xsd" MetadataType="Schema" ID="9c0f8fca-4b46-4ab7-a1c0-98f1d4243863" SourceId="1" SourceUrl="http://localhost:19560/RequerimientoService.svc?xsd=xsd3" />
+    <MetadataFile FileName="RequerimientoService1.xsd" MetadataType="Schema" ID="306c7493-a325-496e-9884-411f1e814e8f" SourceId="1" SourceUrl="http://localhost:19560/RequerimientoService.svc?xsd=xsd0" />
+    <MetadataFile FileName="RequerimientoService2.xsd" MetadataType="Schema" ID="a459cbca-d08d-441c-b331-827e2cef00ad" SourceId="1" SourceUrl="http://localhost:19560/RequerimientoService.svc?xsd=xsd2" />
+    <MetadataFile FileName="RequerimientoService.wsdl" MetadataType="Wsdl" ID="55ba3f21-4a21-4c4f-824d-7f3d9ce20c55" SourceId="1" SourceUrl="http://localhost:19560/RequerimientoService.svc?wsdl=wsdl0" />
+    <MetadataFile FileName="RequerimientoService1.wsdl" MetadataType="Wsdl" ID="21c22633-c658-4680-818b-cf9042058b6e" SourceId="1" SourceUrl="http://localhost:19560/RequerimientoService.svc?wsdl" />
+    <MetadataFile FileName="RequerimientoService3.xsd" MetadataType="Schema" ID="b6ace7b2-e31c-4484-aac4-43f46ae2d75e" SourceId="1" SourceUrl="http://localhost:19560/RequerimientoService.svc?xsd=xsd1" />
+    <MetadataFile FileName="RequerimientoService.disco" MetadataType="Disco" ID="1b2dfa4a-128b-4822-ae29-2ab243f4e053" SourceId="1" SourceUrl="http://localhost:19560/RequerimientoService.svc?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

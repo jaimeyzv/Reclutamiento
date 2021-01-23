@@ -1,0 +1,284 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3C2E9F5E-CC3A-4AFD-9EF4-888C4E4253DA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Metrica.Rrhh.Colaboradores.BL</RootNamespace>
+    <AssemblyName>Metrica.Rrhh.Colaboradores.BL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Common.Logging, Version=2.1.2.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.2.1.2\lib\net40\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="IronSharp.Core, Version=2013.11.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Iron.IronCore.3.0.9\lib\IronSharp.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="IronSharp.IronMQ, Version=2013.11.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Iron.IronMQ.3.0.13\lib\IronSharp.IronMQ.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.19.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.19\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.6\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=4.2.19.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.19\lib\net45\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Connected Services\WSCandidato\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\WSCliente\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\WSEmpleado\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\WSNotificacion\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\WSPostulacion\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Metrica.Rrhh.Colaboradores.DAL\Metrica.Rrhh.Colaboradores.DAL.csproj">
+      <Project>{20314662-a8b6-4174-8edc-7e8bc5de611f}</Project>
+      <Name>Metrica.Rrhh.Colaboradores.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Metrica.Rrhh.Colaboradores.Entity\Metrica.Rrhh.Colaboradores.Entity.csproj">
+      <Project>{8ce2a3ad-9144-4163-a8c1-da82aeacad92}</Project>
+      <Name>Metrica.Rrhh.Colaboradores.Entity</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Connected Services\WSCandidato\CandidatoService.wsdl" />
+    <None Include="Connected Services\WSCandidato\CandidatoService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WSCandidato\CandidatoService1.wsdl" />
+    <None Include="Connected Services\WSCandidato\CandidatoService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WSCandidato\CandidatoService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WSCandidato\CandidatoService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WSCliente\ClienteService.wsdl" />
+    <None Include="Connected Services\WSCliente\ClienteService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WSCliente\ClienteService1.wsdl" />
+    <None Include="Connected Services\WSCliente\ClienteService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WSCliente\ClienteService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WSCliente\ClienteService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WSEmpleado\EmpleadoService.wsdl" />
+    <None Include="Connected Services\WSEmpleado\EmpleadoService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WSEmpleado\EmpleadoService1.wsdl" />
+    <None Include="Connected Services\WSEmpleado\EmpleadoService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WSEmpleado\EmpleadoService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WSEmpleado\EmpleadoService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WSNotificacion\NotificacionService.wsdl" />
+    <None Include="Connected Services\WSNotificacion\NotificacionService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WSNotificacion\NotificacionService1.wsdl" />
+    <None Include="Connected Services\WSNotificacion\NotificacionService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WSNotificacion\NotificacionService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WSNotificacion\NotificacionService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WSPostulacion\PostulacionService.wsdl" />
+    <None Include="Connected Services\WSPostulacion\PostulacionService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WSPostulacion\PostulacionService1.wsdl" />
+    <None Include="Connected Services\WSPostulacion\PostulacionService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WSPostulacion\PostulacionService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WSPostulacion\PostulacionService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="iron.json" />
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\Metrica.Rrhh.Colaboradores.Entity.DTO.CandidatoDTO.datasource" />
+    <None Include="Properties\DataSources\Metrica.Rrhh.Colaboradores.Entity.DTO.ClienteDTO.datasource" />
+    <None Include="Properties\DataSources\Metrica.Rrhh.Colaboradores.Entity.DTO.EmpleadoDTO.datasource" />
+    <None Include="Properties\DataSources\Metrica.Rrhh.Colaboradores.Entity.DTO.PostulanteDTO.datasource" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\WSCandidato\" />
+    <WCFMetadataStorage Include="Connected Services\WSCliente\" />
+    <WCFMetadataStorage Include="Connected Services\WSEmpleado\" />
+    <WCFMetadataStorage Include="Connected Services\WSNotificacion\" />
+    <WCFMetadataStorage Include="Connected Services\WSPostulacion\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WSNotificacion\NotificacionService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WSNotificacion\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WSNotificacion\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WSNotificacion\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WSPostulacion\PostulacionService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WSPostulacion\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WSPostulacion\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WSPostulacion\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WSCliente\ClienteService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WSCliente\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WSCliente\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WSCliente\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WSEmpleado\EmpleadoService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WSEmpleado\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WSEmpleado\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WSEmpleado\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WSCandidato\CandidatoService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WSCandidato\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WSCandidato\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WSCandidato\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Common\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
+    <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+  </Target>
+</Project>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://MetricaAndina/Colaboradores/IClienteService" elementFormDefault="qualified" targetNamespace="http://MetricaAndina/Colaboradores/IClienteService" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:19560/ClienteService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Metrica.Rrhh.Colaboradores.Entity.DTO" />
+  <xs:element name="Listar">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ListarResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Metrica.Rrhh.Colaboradores.Entity.DTO" minOccurs="0" name="ListarResult" nillable="true" type="q1:ArrayOfClienteDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
