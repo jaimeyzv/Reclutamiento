@@ -9,7 +9,7 @@ using System.Data;
 using System.Data.Common;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading.Tasks; 
 
 namespace Metrica.Rrhh.Colaboradores.DAL
 {
