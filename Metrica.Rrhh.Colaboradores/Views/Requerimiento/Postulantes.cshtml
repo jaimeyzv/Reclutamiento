@@ -1,0 +1,506 @@
+﻿@model Metrica.Rrhh.Colaboradores.Models.RequerimientoViewModel
+
+@{
+    ViewBag.Title = "Requerimientos de Personal > Postulantes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/multi-select.css" rel="stylesheet" />
+<div style="padding-top:10px;">
+    <div class="card">
+        <div class="card-save">
+            <a class="btn btn-default" href="@Url.Action("Index")"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+        </div>
+        <div class="card-header d-flex align-items-center">
+            <h3 class="h4">Datos del Requerimiento</h3>
+        </div>
+        <div class="card-body" style="padding-left:0px; padding-right:0px;">
+            @*@using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()*@
+            @Html.HiddenFor(model => model.Cliente.Id)
+            @Html.HiddenFor(model => model.Id)
+            <div class="forms row">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group col-md-12">
+                    @Html.LabelFor(model => model.Perfil, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Perfil, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
+                </div>
+                <div class="form-group col-md-4">
+                    @Html.LabelFor(model => model.RangoSalario, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.RangoSalario, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-label"> Cliente</label>
+                    @Html.EditorFor(model => model.Cliente.RazonSocial, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
+                    @*@Html.DropDownListFor(model => model.IdCliente, new SelectList(Model.Clientes, "Id", "RazonSocial"), null, new { @class = "form-control" })*@
+                </div>
+                <div class="form-group col-md-4">
+                    @Html.LabelFor(model => model.FechaTentativa, htmlAttributes: new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.FechaTentativa, "{0:yyyy-MM-dd}", new { @class = "form-control", @disabled = "" })
+                </div>
+                <div class="form-group col-md-12">
+                    @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label" })
+                    @Html.TextAreaFor(model => model.Descripcion, 3, 1, new { @class = "form-control", @disabled = "" })
+                </div>
+                <div class="form-group col-md-12">
+                    <label class="control-label" style="margin-bottom:0px;"> Postulantes</label>
+                    <div style="padding-top:3px;padding-bottom:10px; padding-right:3px;width:100%; overflow-x: auto;">
+                        <button id="btnNuevo" data-toggle="modal" data-target="#candidatosModal" class="button-trasparent btn btn-primary" title="Agregar nuevo candidato" style="float:right;"><i class="fa fa-plus"></i> Nuevo</button>
+                        <!-- Modal-->
+                        <div id="candidatosModal" tabindex="-1" role="dialog" aria-labelledby="titulo" aria-hidden="true" class="modal fade text-left">
+                            <div role="document" class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header" style="background-color:black; color:white;">
+                                        <h4 id="titulo" class="modal-title">Candidatos</h4>
+                                        <button type="button" data-dismiss="modal" aria-label="Close" style="color:red;" class="close button-trasparent"><i class="fa fa-times" aria-hidden="true"></i></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="clearfix">
+                                            <input type="hidden" id="hdd_estado_candidato" />
+                                            <nav class="navbar-acciones" style="float:left;">
+                                                <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+                                                    <li><a class='disabled' href="#" onclick="return activar_filtro_estado(this);">Empleados</a></li>
+                                                </ul>
+                                            </nav>
+                                            <div class="form-inline float-right" style="padding-top:6px;">
+                                                <div class="form-group">
+                                                    <label for="proceso">Puesto</label>
+                                                </div>
+                                                <div class="form-group" style="padding-right:10px;">
+                                                    @Html.DropDownList("puestos", (SelectList)ViewBag.puestos, "--Todos--", new { @class = "form-control", style = "width:220px;" })
+                                                </div>
+                                                <div class="form-group" style="padding-right:3px; max-width:250px;">
+                                                    <div class="input-group">
+                                                        @Html.TextBox("filtro_por", "", new { @class = "form-control", placeholder = "Buscar por..." })
+                                                        <div class="input-group-append"><button onclick="buscar_candidatos();" type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button></div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="forms row" style="padding-top:10px;">
+                                            <div class="form-group col-md-12" style="padding-left: 0px;padding-right: 0px;">
+                                                <table id="tbCandidatos" class="table table-bordered table-hover" cellspacing="0">
+                                                    <thead class="thead-dark">
+                                                        <tr>
+                                                            <th style="width:90px;">
+                                                                Dni
+                                                            </th>
+                                                            <th>
+                                                                Nombres
+                                                            </th>
+                                                            <th>
+                                                                Puesto
+                                                            </th>
+                                                            <th style="width:30px;">
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @*@foreach (var item in Model.Candidatos)
+    {
+                                                    <tr>
+                                                        <td>
+                                                            @Html.DisplayFor(model => item.Dni)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(model => item.NombresCompleto)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(model => item.Puesto)
+                                                        </td>
+                                                        <td>
+                                                            <button id="btnAgregar" onclick="confirmar_candidato('@item.NombresCompleto','@item.Dni', @item.Pretencion);" class="display-mode button-trasparent" title="Agregar candidato"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                                                        </td>
+                                                    </tr>
+}*@
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" data-dismiss="modal" class="btn btn-secondary">Salir</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Modal confirmación-->
+                        <div id="confirmacionModal" tabindex="-1" role="dialog" aria-labelledby="tituloC" aria-hidden="true" class="modal fade text-left">
+                            <div role="document" class="modal-dialog modal-dialog-confirm">
+                                <div class="modal-content" style="margin-top: 100px;">
+
+                                    <div class="modal-header" style="background:#006683; color:white;">
+                                        <h4 id="tituloC" class="modal-title">Confirmar acción</h4>
+                                        <button type="button" data-dismiss="modal" aria-label="Close" style="color:red;" class="close button-trasparent"><i class="fa fa-times" aria-hidden="true"></i></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="forms row">
+                                            <div class="form-group col-md-12" style="padding-left:0px; padding-right:0px;">
+                                                <input type="hidden" id="hddIdPuestoCandidato" />
+                                                <input type="hidden" id="hddDniCandidato" />
+                                                <input type="hidden" id="hddEmailCandidato" />
+                                                <label class="control-label"> Candidato</label>
+                                                <input type="text" id="txtCCandidato" class="form-control" disabled="disabled" value="" />
+                                            </div>
+                                            <div class="form-group col-md-12" style="padding-left:0px; padding-right:0px;">
+                                                <label class="control-label"> Sueldo</label>
+                                                <input type="number" id="txtCPrentencion" onkeypress="return solo_numeros(event)" class="form-control" required value="" maxlength="6" />
+                                            </div>
+                                            <div class="form-group col-md-12" style="padding-left:0px; padding-right:0px;">
+                                                <label class="control-label"> Observaciones</label>
+                                                <input type="text" id="txtCObservacion" class="form-control" value="" maxlength="150" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <div id="div_progreso" style="display:none;" class="div_progreso simple-progress">
+                                            <div class="sp-item sp-item-ani1"></div>
+                                            <div class="sp-item sp-item-ani2"></div>
+                                            <div class="sp-item sp-item-ani3"></div>
+                                            <span style="color: #822181;vertical-align: super;">Procesando...</span>
+                                        </div>
+                                        <div class="div_botones">
+                                            <button type="button" data-dismiss="modal" class="btn btn-secondary">Cancelar</button>
+                                            <button type="button" id="btnagregar_candidato" onclick="agregar_candidato();" class="btn btn-primary">Aceptar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Modal aprobacion-->
+                        <div id="aprobacionModal" tabindex="-1" role="dialog" aria-labelledby="tituloC" aria-hidden="true" class="modal fade text-left">
+                            <div role="document" class="modal-dialog modal-dialog-confirm">
+                                <div class="modal-content" style="margin-top: 100px;">
+                                    <div class="modal-header" style="background:#006683; color:white;">
+                                        <h4 id="tituloC" class="modal-title">Confirmar aprobación</h4>
+                                        <button type="button" data-dismiss="modal" aria-label="Close" style="color:red;" class="close button-trasparent"><i class="fa fa-times" aria-hidden="true"></i></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="forms row">
+                                            <input type="hidden" id="hddApNombreCandidato" />
+                                            <input type="hidden" id="hddApEmailCandidato" />
+                                            <div class="form-group col-md-4" style="padding-left:0px; padding-right:15px;">
+                                                <label class="control-label"> Inicio Contrato</label>
+                                                <input type="text" id="txtCIniContrato" class="form-control date-picker" data-date-format="yyyy-mm-dd" data-plugin-datepicker required />
+                                            </div>
+                                            <div class="form-group col-md-4" style="padding-left:0px; padding-right:15px;">
+                                                <label class="control-label"> Fin Contrato</label>
+                                                <input type="text" id="txtCFinContrato" class="form-control date-picker" data-date-format="yyyy-mm-dd" data-plugin-datepicker required />
+                                            </div>
+                                            <div class="form-group col-md-4" style="padding-left:0px; padding-right:0px;">
+                                                <label class="control-label"> Sueldo</label>
+                                                <input type="number" id="txtCPrentencionConfirm" onkeypress="return solo_numeros(event)" class="form-control" required value="" maxlength="6" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <div id="div_progreso" style="display:none;" class="div_progreso simple-progress">
+                                            <div class="sp-item sp-item-ani1"></div>
+                                            <div class="sp-item sp-item-ani2"></div>
+                                            <div class="sp-item sp-item-ani3"></div>
+                                            <span style="color: #822181;vertical-align: super;">Procesando...</span>
+                                        </div>
+                                        <div class="div_botones">
+                                            <button type="button" data-dismiss="modal" class="btn btn-secondary">Cancelar</button>
+                                            <button type="button" id="btnaprobar_candidato" onclick="aprobar_candidato();" class="btn btn-primary">Aceptar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="tbPostulantes" class="table table-bordered table-hover" cellspacing="0">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th style="width:25px;"></th>
+                                    <th style="width:100px;">
+                                        Dni
+                                    </th>
+                                    <th>
+                                        Nombres
+                                    </th>
+                                    <th style="width:100px;">
+                                        Sueldo
+                                    </th>
+                                    <th>
+                                        Observación
+                                    </th>
+                                    <th style="width:130px;">
+                                        F. Postulación
+                                    </th>
+                                    <th style="width:89px;"> </th>
+                                </tr>
+                            </thead>
+                            @foreach (var item in Model.Postulaciones)
+                            {
+                                <tr>
+                                    <td>
+                                        <div style="display:inline; font-size: 1.3em;padding-top:2px; padding-bottom:2px;">
+                                            @if (item.Estado == "RE")
+                                            {
+                                                <i id="ic_estado" class="fa fa-cog" aria-hidden="true" title="Registrado"></i>
+                                            }
+                                            else
+                                            {
+                                                <i id="ic_estado" class="fa fa-check" aria-hidden="true" title="Aprobado"></i>
+                                            }
+                                        </div>
+                                    </td>
+                                    <td style="vertical-align:middle;">
+                                        <span class="display-mode">
+                                            @item.Dni
+                                        </span>
+                                        @Html.HiddenFor(modelItem => item.Email)
+                                        @Html.HiddenFor(modelItem => item.IdPuesto)
+                                        @Html.LabelFor(modelItem => item.Dni, item.Dni, new { @class = "edit-mode", @id = "lblDni" })
+
+                                    </td>
+                                    <td style="vertical-align:middle;">
+                                        <span class="display-mode">@item.NombresCompleto</span>
+                                        @Html.LabelFor(modelItem => item.NombresCompleto, item.NombresCompleto, new { @class = "edit-mode", @id = "lblNombre" })
+                                    </td>
+                                    <td style="vertical-align:middle;">
+                                        <span class="display-mode" id="lblPretencion"> @item.Pretencion</span>
+                                        @Html.EditorFor(modelItem => item.Pretencion, new { htmlAttributes = new { @class = "form-control edit-mode" } })
+                                    </td>
+                                    <td style="vertical-align:middle;">
+                                        <span class="display-mode" id="lblObservacion">@item.Observacion</span>
+                                        @Html.EditorFor(modelItem => item.Observacion, new { htmlAttributes = new { @class = "form-control edit-mode" } })
+                                    </td>
+                                    <td style="vertical-align:middle;">
+                                        <span class="display-mode">
+                                            @item.FechaPostulacion.ToString("yyyy-MM-dd")
+                                        </span>
+                                        @Html.LabelFor(modelItem => item.FechaPostulacion, item.FechaPostulacion.ToString("yyyy-MM-dd"), new { @class = "edit-mode" })
+
+                                    </td>
+                                    <td style="font-size: 1.3em;padding-top:8px; padding-bottom:8px;vertical-align:middle;">
+                                        <div style="display:inline-flex;">
+                                            @if (item.Estado == "RE")
+                                            {
+                                                <button style="color: #006683;" id="btnAprobar" class="aprob-user display-mode button-trasparent" title="Aprobar ingreso"><i class="fa fa-check" aria-hidden="true"></i></button>
+                                                <button style="color: #006683;" class="edit-user display-mode button-trasparent" title="Editar"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                                            }
+                                            <button style="color: #006683;" class="cancel-user edit-mode button-trasparent" title="Cancelar edición"><i class="fa fa-times" aria-hidden="true"></i></button>&nbsp;
+                                            <button style="color: #006683;" class="save-user edit-mode button-trasparent" title="Guardar"><i class="fa fa-save" aria-hidden="true"></i></button>
+                                        </div>
+
+                                    </td>
+                                </tr>
+                            }
+
+                        </table>
+                    </div>
+                </div>
+                <div class="line"></div>
+                <div class="form-group col-md-12">
+                    <div class="offset-sm-5 col-md-10">
+                        <a class="btn btn-default" href="@Url.Action("Index")"><i class="fa fa-arrow-left" aria-hidden="true"></i> Salir</a>
+                        @*<button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>*@
+                    </div>
+                </div>
+            </div>
+            @*}*@
+        </div>
+    </div>
+</div>
+<script>
+    function confirmar_candidato(nombre, dni, pretencion, email, puesto) {
+        if (validar_postulante(dni)) {
+            $('#txtCCandidato').val(nombre);
+            $('#hddDniCandidato').val(dni);
+            $('#txtCObservacion').val('');
+            $('#txtCPrentencion').val(pretencion);
+            $('#hddEmailCandidato').val(email);
+            $('#hddIdPuestoCandidato').val(puesto);
+            $('#confirmacionModal').modal('show');
+        } else {
+            alert("Postulante ya fué agregado.");
+        }
+    }
+
+    function buscar_candidatos() {
+        var estado = $('#hdd_estado_candidato').val();
+        var puesto = $("#puestos").val();
+        if (puesto == "")
+            puesto = 0;
+        var filtro_por = encodeURI($("#filtro_por").val());
+        ajax_general_postulante("/Candidato/CandidatoPostulante?estado=" + estado + "&puesto=" + puesto + "&filtro=" + filtro_por, "GET", "", function (data) {
+            var fila = "";
+            var tabla = $("#tbCandidatos");
+            tabla.find("tr").remove();
+            //$("#tbCandidatos tr").remove();
+            data.forEach(function (item) {
+                fila += '<tr><td>' + item.Dni + '</td>';
+                fila += '<td>' + item.NombresCompleto + '</td>';
+                fila += '<td>' + item.Puesto + '</td>';
+                fila += '<td><button id="btnAgregar" onclick="confirmar_candidato(\'' + item.NombresCompleto + '\',\'' + item.Dni + '\', ' + item.Pretencion + ',\'' + item.Email + '\', ' + item.IdPuesto + ');" class="display-mode button-trasparent" title="Agregar candidato"><i class="fa fa-plus" aria-hidden="true"></i></button></td><tr>';
+                tabla.append(fila);
+                fila = "";
+            });
+            //alert(JSON.stringify(data));
+        });
+    }
+
+    function agregar_candidato() {
+        if ($('#txtCPrentencion').val() != '') {
+            var data = { Accion: 1, IdRequerimiento: $('#Id').val(), Pretencion: $('#txtCPrentencion').val(), Disponibilidad: 15, Dni: $('#hddDniCandidato').val(), Observacion: $('#txtCObservacion').val() };
+            ajax_general_postulante("/Requerimiento/Postulantes/" + $('#Id').val(), "POST", data, procesar_nuevo_postulante);
+        } else {
+            $('#txtCPrentencion').focus();
+        }
+    }
+
+    var filaAprobacion = null;
+
+    function aprobar_candidato() {
+        if ($('#txtCIniContrato').val() == '') {
+            $('#txtCIniContrato').focus();
+            return;
+        }
+        var data = { Accion: 4, IdRequerimiento: $('#hddId').val(), Dni: $('#hddDniCandidato').val(), Pretencion: $('#txtCPrentencionConfirm').val(), FechaIniContrato: $('#txtCIniContrato').val(), FechaFinContrato: $('#txtCFinContrato').val(), IdPuesto: $('#hddIdPuestoCandidato').val(), IdCliente: $('#Cliente_Id').val(), Nombres: $('#hddApNombreCandidato').val(), Email: $('#hddApEmailCandidato').val() };
+        ajax_general_postulante("/Requerimiento/Postulantes/" + $('#Id').val(), "POST", data, function () {
+            mostrar_msg_ok("Postulante aprobado correctamente");
+            filaAprobacion.find("#ic_estado").removeClass("fa-cog").addClass("fa-check").attr("title", "Aprobado");
+            filaAprobacion.find(".aprob-user, .edit-user").hide();
+            $('#aprobacionModal').modal('hide');
+        });
+    }
+
+    function mostrar_progreso() {
+        $('.div_progreso').show();
+        $('.div_botones').hide();
+    }
+
+    function ocultar_progreso() {
+        $('.div_progreso').hide();
+        $('.div_botones').show();
+    }
+
+    function ajax_general_postulante(url, tipo, Data, callback) {
+        mostrar_progreso();
+        return $.ajax({
+            type: tipo,
+            url: url,
+            data: Data,
+            dataType: 'json',
+            error: function (xhr, error) {
+                ocultar_progreso();
+                alert(error + " " + xhr.status);
+            },
+            success: function (response) {
+                ocultar_progreso();
+                if (response.Success)
+                    callback(response.Data);
+                else
+                    alert(response.Message);
+            }
+        });
+    }
+
+    function procesar_nuevo_postulante(data) {
+        $('#confirmacionModal').modal('hide');
+        var tds = '<tr><td><div style= "display:inline; font-size: 1.3em;padding-top:2px; padding-bottom:2px;" ><i class="fa fa-cog" aria-hidden="true" title="Registrado"></i></div></td>';
+        tds += '<td style="vertical-align:middle;"><span class="display-mode" >' + data.Dni + '</span ><label class="edit-mode" for="item_Dni" id="lblDni" style="display: none;">' + data.Dni + '</label></td >';
+        tds += '<input id="item_Email" name="item.Email" type="hidden" value="' + $('#hddEmailCandidato').val() + '">';
+        tds += '<input id="item_IdPuesto" name="item.IdPuesto" type="hidden" value="' + $('#hddIdPuestoCandidato').val() + '">';
+        tds += '<td style="vertical-align:middle;"><span class="display-mode" >' + $('#txtCCandidato').val() + '</span ><label class="edit-mode" id="lblNombre" for="item_NombresCompleto" style="display: none;">' + $('#txtCCandidato').val() + '</label></td >';
+        tds += '<td style="vertical-align:middle;"><span class="display-mode" id= "lblPretencion"> ' + data.Pretencion + '</span ><input class="form-control edit-mode text-box single-line" id="item_Pretencion" name="item.Pretencion" type="text" value="' + data.Pretencion + '" style="display: none;"></td>';
+        tds += '<td style="vertical-align:middle;"><span class="display-mode" id= "lblObservacion"> ' + (data.Observacion == null ? '' : data.Observacion) + '</span ><input class="form-control edit-mode text-box single-line" id="item_Observacion" name="item.Observacion" type="text" value="' + (data.Observacion == null ? '' : data.Observacion) + '" style="display: none;"></td>';
+        tds += '<td style="vertical-align:middle;"><span class="display-mode" >' + ToJavaScriptDate(data.FechaPostulacion) + '</span ><label class="edit-mode" for="item_FechaPostulacion" style="display: none;">' + ToJavaScriptDate(data.FechaPostulacion) + '</label></td >';
+        tds += '<td style="font-size: 1.3em;padding-top:8px; padding-bottom:8px;vertical-align:middle;"><div style="display:inline-flex;" ><button id="btnAprobar" style="color: #006683;" class="aprob-user display-mode button-trasparent" title="Aprobar ingreso" style=""><i class="fa fa-check" aria-hidden="true"></i></button><button style="color: #006683;" class="edit-user display-mode button-trasparent" title="Editar" style=""><i class="fa fa-pencil" aria-hidden="true"></i></button><button style="color: #006683;" class="cancel-user edit-mode button-trasparent" title="Cancelar edición" style="display: none;"><i class="fa fa-times" aria-hidden="true"></i></button>&nbsp;<button style="color: #006683;" class="save-user edit-mode button-trasparent" title="Guardar" style="display: none;"><i class="fa fa-save" aria-hidden="true"></i></button></div></td></tr>';
+        $('#tbPostulantes tr:last').after(tds);
+        mostrar_msg_ok("Postulante agregado correctamente");
+        configurar_evento_tabla_postulantes();
+    }
+
+    function activar_filtro_estado(e) {
+        if ($('#hdd_estado_candidato').val() == "") {
+            $('#hdd_estado_candidato').val("CO");
+            $(e).removeClass("disabled");
+        } else {
+            $(e).addClass("disabled");
+            $('#hdd_estado_candidato').val("");
+        }
+        return false;
+    }
+
+    //function filtrar_tabla() {
+    //    var tabla = $('#tbCandidatos > tbody > tr');
+    //    var filtro = $('#filtro_por').val().toLocaleLowerCase();
+    //    tabla.each(function () {
+    //        filtrar_fila(this, filtro);
+    //    });
+    //}
+
+    //function filtrar_fila(row, filtro) {
+    //    var text = row.textContent.toLowerCase(), val = filtro;
+    //    row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+    //}
+
+    window.onload = function () {
+        configurar_evento_tabla_postulantes();
+    }
+
+    function configurar_evento_tabla_postulantes() {
+        $('.edit-mode').hide();
+        $('.edit-user, .cancel-user').unbind();
+        $('.edit-user, .cancel-user').on('click', function () {
+            var tr = $(this).parents('tr:first');
+            tr.find('.edit-mode, .display-mode').toggle();
+        });
+
+        $('.save-user').unbind();
+        $('.save-user').on('click', function () {
+            var tr = $(this).parents('tr:first');
+            var dni = tr.find("#lblDni").text();
+            var pretencion = tr.find("#item_Pretencion").val();
+            var observacion = tr.find("#item_Observacion").val();
+            var data = { Accion: 2, IdRequerimiento: $('#Id').val(), Pretencion: pretencion, Dni: dni, Observacion: observacion };
+            ajax_general("/Requerimiento/Postulantes/" + $('#Id').val(), "POST", data, function () {
+                mostrar_msg_ok("Postulante actualizado correctamente");
+                tr.find("#lblPretencion").text(pretencion);
+                tr.find("#lblObservacion").text(observacion);
+                tr.find('.edit-mode, .display-mode').toggle();
+            });
+
+        });
+
+        $('.aprob-user').unbind();
+        $('.aprob-user').on('click', function () {
+            $('#aprobacionModal').modal('show');
+            filaAprobacion = $(this).parents('tr:first');
+            $('#hddDniCandidato').val(filaAprobacion.find("#lblDni").text());
+            $('#hddIdPuestoCandidato').val(filaAprobacion.find("#item_IdPuesto").val());
+            $('#txtCPrentencionConfirm').val(parseInt(filaAprobacion.find("#lblPretencion").text()));
+            $('#hddApNombreCandidato').val(filaAprobacion.find("#lblNombre").text());
+            $('#hddApEmailCandidato').val(filaAprobacion.find("#item_Email").val());
+        });
+    }
+
+    function validar_postulante(dni) {
+        var retval = true;
+        $("#tbPostulantes").find("tr").each(function (index) {
+            if (!index) return;
+            var item = $(this).find("td").eq(1).text();
+            if (item.includes(dni)) {
+                retval = false;
+                return;
+            }
+        });
+        return retval;
+    }
+</script>
+<style type="text/css">
+    .edit-mode {
+        padding-bottom: 2px;
+        /*padding-top: 2px;*/
+    }
+
+    .line {
+        border-bottom: 2px dashed #eee !important;
+    }
+</style>

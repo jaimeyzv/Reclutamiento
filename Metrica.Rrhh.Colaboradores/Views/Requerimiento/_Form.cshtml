@@ -1,0 +1,56 @@
+﻿@model Metrica.Rrhh.Colaboradores.Models.RequerimientoViewModel
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "frmAccion" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Estado)
+    @Html.HiddenFor(model => model.NombreCliente)
+    <div class="forms row">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group col-md-12">
+            @Html.LabelFor(model => model.Perfil, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.Perfil, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+
+        @*<div class="form-group col-md-6">
+                @Html.LabelFor(model => model.Estado, htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.Estado, new SelectList(Model.Estados, "Codigo", "Valor"), null, new { @class = "form-control" })
+            </div>*@
+        <div class="form-group col-md-6">
+            @Html.LabelFor(model => model.OrdenCompra, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.OrdenCompra, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+
+        <div class="form-group col-md-6">
+            @Html.LabelFor(model => model.FechaTentativa, htmlAttributes: new { @class = "control-label" })
+            @Html.TextBoxFor(model => model.FechaTentativa, "{0:yyyy-MM-dd}", new { @class = "form-control date-picker", data_plugin_datepicker = "", data_date_format = "yyyy-mm-dd" })
+        </div>
+
+        <div class="form-group col-md-6">
+            @Html.LabelFor(model => model.RangoSalario, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.RangoSalario, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+
+        <div class="form-group col-md-6">
+            <label class="control-label"> Cliente</label>
+            @Html.DropDownListFor(model => model.IdCliente, new SelectList(Model.Clientes, "Id", "RazonSocial"), null, new { @class = "form-control", onchange="actualizar_nombre()" })
+        </div>
+
+        <div class="form-group col-md-12">
+            @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label" })
+            @Html.TextAreaFor(model => model.Descripcion, 5, 1, new { @class = "form-control" })
+        </div>
+        <div class="line"></div>
+        <div class="form-group col-md-12">
+            <div class="offset-sm-3 col-md-10">
+                <a class="btn btn-default" href="@Url.Action("Index")"><i class="fa fa-arrow-left" aria-hidden="true"></i> Cancelar</a>
+                <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
+            </div>
+        </div>
+    </div>
+}
+<script>
+    function actualizar_nombre() {
+        $("#NombreCliente").val($("#IdCliente :selected").text());
+    }
+</script>
