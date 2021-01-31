@@ -52,12 +52,33 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\DConexion.cs" />
+    <Compile Include="DCandidato.cs" />
+    <Compile Include="DCliente.cs" />
+    <Compile Include="DEmpleado.cs" />
+    <Compile Include="DPostulacion.cs" />
+    <Compile Include="DPuesto.cs" />
     <Compile Include="DRequerimiento.cs" />
     <Compile Include="DSeguridad.cs" />
     <Compile Include="DUtil.cs" />
+    <Compile Include="Interfaz\Base\IDConsulta.cs" />
+    <Compile Include="Interfaz\Base\IDMantenimiento.cs" />
+    <Compile Include="Interfaz\IDCandidato.cs" />
+    <Compile Include="Interfaz\IDCliente.cs" />
+    <Compile Include="Interfaz\IDEmpleado.cs" />
+    <Compile Include="Interfaz\IDPostulacion.cs" />
+    <Compile Include="Interfaz\IDPuesto.cs" />
+    <Compile Include="Interfaz\IDRequerimiento.cs" />
+    <Compile Include="Interfaz\IDSeguridad.cs" />
+    <Compile Include="Interfaz\IDUtil.cs" />
+    <Compile Include="obj\Debug\.NETFramework,Version=v4.5.AssemblyAttributes.cs" />
+    <Compile Include="obj\Release\.NETFramework,Version=v4.5.AssemblyAttributes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="obj\Debug\Metrica.Rrhh.Colaboradores.DAL.csproj.CoreCompileInputs.cache" />
+    <None Include="obj\Debug\Metrica.Rrhh.Colaboradores.DAL.csprojAssemblyReference.cache" />
+    <None Include="obj\Release\Metrica.Rrhh.Colaboradores.DAL.csprojAssemblyReference.cache" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -67,7 +88,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Interfaz\Base\" />
+    <Folder Include="bin\Debug\" />
+    <Folder Include="bin\Release\" />
+    <Folder Include="obj\Debug\TempPE\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="obj\Debug\Metrica.Rrhh.Colaboradores.DAL.csproj.FileListAbsolute.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
