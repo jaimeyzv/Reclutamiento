@@ -1,0 +1,698 @@
+﻿@model Metrica.Rrhh.Colaboradores.Models.CandidatoViewModel
+@using Newtonsoft.Json;
+<style type="text/css">
+    .nav-item a {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #aaa;
+    }
+
+    .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+        color: inherit;
+    }
+</style>
+<link href="~/Scripts/tagsinput/bootstrap-tagsinput.css" rel="stylesheet" />
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "frmAccion", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Estado)
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="forms row">
+        <div id="divInfoGeneral" class="forms row">
+            <div class="form-group col-md-12">
+                <label for="Cv" class="control-label"> Curriculum Vitae</label>
+                <div style="display:flex;">
+                    @Html.TextBoxFor(model => model.Adjunto, new { type = "file", @class = "form-control" })
+                    @if (!string.IsNullOrEmpty(Model.Cv))
+                    {
+                        <a class="btn btn-primary" id="btnDescargarCV" href="@Model.Cv" target="_blank" title="DescargarCV"><i class="fa fa-download" aria-hidden="true"></i> CV</a>
+                    }
+                    <button class="btn" style="background:none;" id="btnProcesarCV" title="Procesar CV" onclick="return false;"><i class="fa fa-eye" aria-hidden="true"></i> Beta</button>
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.Dni, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.Dni, (Model.Accion == 2 ? (object)new { htmlAttributes = new { @class = "form-control", disabled = "" } } : new { htmlAttributes = new { @class = "form-control" } }))
+            </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.Nombres, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.Nombres, new { htmlAttributes = new { @class = "form-control", @onblur="generar_usuario();" } })
+            </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.ApellidoPaterno, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.ApellidoPaterno, new { htmlAttributes = new { @class = "form-control", @onblur = "generar_usuario();" } })
+            </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.ApellidoMaterno, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.ApellidoMaterno, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            <div class="form-group col-md-4">
+                <label class="control-label"> Puesto</label>
+                @Html.DropDownListFor(model => model.IdPuesto, new SelectList(Model.Puestos, "Id", "Nombre"), null, new { @class = "form-control", onchange = "cargar_skill(this.value)" })
+            </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.TelefonoPersonal, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.TelefonoPersonal, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.Direccion, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.Direccion, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.Distrito, htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.Distrito, new SelectList(Model.Distritos, "Codigo", "Valor"), null, new { @class = "form-control" })
+            </div>
+            @if (Model.EsEmpleado)
+            {
+                <div class="form-group col-md-4">
+                    @Html.LabelFor(model => model.Usuario, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Usuario, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="IdCliente" class="control-label">Cliente</label>
+                    @Html.DropDownListFor(model => model.IdCliente, new SelectList(Model.Clientes, "Id", "RazonSocial"), null, new { @class = "form-control" })
+                </div>
+                <div class="form-group col-md-4">
+                    @Html.LabelFor(model => model.FechaIniContrato, htmlAttributes: new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.FechaIniContrato, "{0:yyyy-MM-dd}", new { @class = "form-control date-picker", data_plugin_datepicker = "", data_date_format = "yyyy-mm-dd" })
+                </div>
+                <div class="form-group col-md-4">
+                    @Html.LabelFor(model => model.FechaFinContrato, htmlAttributes: new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.FechaFinContrato, "{0:yyyy-MM-dd}", new { @class = "form-control date-picker", data_plugin_datepicker = "", data_date_format = "yyyy-mm-dd" })
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="Pretencion" class="control-label">Sueldo</label>
+                    @Html.EditorFor(model => model.Pretencion, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            }
+            else
+            {
+                <div class="form-group col-md-4">
+                    @Html.LabelFor(model => model.Pretencion, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Pretencion, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="form-group col-md-4">
+                    @Html.LabelFor(model => model.Disponibilidad, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Disponibilidad, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            }
+
+
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.FechaNacimiento, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.FechaNacimiento, "{0:yyyy-MM-dd}", new { @class = "form-control date-picker", data_plugin_datepicker = "", data_date_format = "yyyy-mm-dd" })
+            </div>
+
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.TelefonoCasa, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.TelefonoCasa, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.NumeroHijos, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.NumeroHijos, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            <div class="form-group col-md-4">
+                <label class="control-label"> Sexo</label>
+                @Html.DropDownListFor(model => model.Sexo, new SelectList(Model.Sexos, "Codigo", "Valor"), null, new { @class = "form-control" })
+            </div>
+            <div class="form-group col-md-4">
+                <label class="control-label"> Estado Civil</label>
+                @Html.DropDownListFor(model => model.EstadoCivil, new SelectList(Model.EstadosCiviles, "Codigo", "Valor"), null, new { @class = "form-control" })
+            </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.GradoEstudio, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.GradoEstudio, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            <div class="form-group col-md-12">
+                @Html.LabelFor(model => model.Observacion, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.Observacion, new { htmlAttributes = new { @class = "form-control", @style = "height:90px;" } })
+            </div>
+        </div>
+
+        <div id="divInfoPerfil" class="forms row" style="display:none; width:100%;">
+            <div class="form-group col-md-12">
+                <label class="control-label"> Conocimientos Técnicos</label>
+                @Html.EditorFor(model => model.ConocimientoTecnico, new { htmlAttributes = new { @class = "form-control", data_role = "tagsinput", placeholder = "Add Tecnologia" } })
+                @*<input id="txtTecnologia" type="text" value="REST" data-role="tagsinput" class="form-control" placeholder="Add Tecnologia">*@
+            </div>
+            <div class="form-group col-md-12">
+                <label class="control-label"> Experiencia Profesional</label>
+                <div style="padding-bottom:10px; padding-right:3px;width:100%; overflow-x: auto;">
+                    <button id="btnNuevo" onclick="return nueva_experiencia();" class="button-trasparent btn btn-primary" title="Agregar nueva experiencia" style="float:right;"><i class="fa fa-plus"></i></button>
+                </div>
+                <div class="table-responsive">
+                    <table id="tbPostulantes" class="table table-bordered table-hover" cellspacing="0">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>
+                                    Empresa
+                                </th>
+                                <th>
+                                    Cargo
+                                </th>
+                                <th style="width:140px;">
+                                    Fecha Inicio
+                                </th>
+                                <th style="width:140px;">
+                                    Fecha Fin
+                                </th>
+                                <th>
+                                    Detalle
+                                </th>
+                                <th style="width:85px;"> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Experiencias != null)
+                            {
+                                for (int idxRow = 0; idxRow < Model.Experiencias.Count; idxRow++)
+                                {
+                                    <tr>
+                                        <td style="vertical-align:middle;">
+                                            @Html.HiddenFor(modelItem => Model.Experiencias[idxRow].Id)
+                                            @Html.HiddenFor(modelItem => Model.Experiencias[idxRow].Tipo)
+                                            @Html.HiddenFor(modelItem => Model.Experiencias[idxRow].Accion)
+                                            @Html.HiddenFor(modelItem => Model.Experiencias[idxRow].Empresa)
+                                            <span class="display-mode" id="lblEmpresa"> @Model.Experiencias[idxRow].Empresa</span>
+                                            <input type="text" id="item_Empresa" class="form-control edit-mode" value="@Model.Experiencias[idxRow].Empresa" required />
+                                        </td>
+                                        <td style="vertical-align:middle;">
+                                            @Html.HiddenFor(modelItem => Model.Experiencias[idxRow].Cargo)
+                                            <span class="display-mode" id="lblCargo"> @Model.Experiencias[idxRow].Cargo</span>
+                                            <input type="text" id="item_Cargo" class="form-control edit-mode" value="@Model.Experiencias[idxRow].Cargo" required />
+                                        </td>
+                                        <td style="vertical-align:middle;">
+                                            <span class="display-mode" id="lblFechaInicio"> @Model.Experiencias[idxRow].FechaInicio.ToString("yyyy-MM-dd")</span>
+                                            @Html.HiddenFor(modelItem => Model.Experiencias[idxRow].FechaInicio)
+                                            <input type="text" id="item_FechaIni" class="form-control edit-mode date-picker" value="@Model.Experiencias[idxRow].FechaInicio.ToString("yyyy-MM-dd")" data-date-format="yyyy-mm-dd" data-plugin-datepicker required />
+                                        </td>
+                                        <td style="vertical-align:middle;">
+                                            <span class="display-mode" id="lblFechaFin"> @(Model.Experiencias[idxRow].FechaFin != null ? ((DateTime)Model.Experiencias[idxRow].FechaFin).ToString("yyyy-MM-dd") : "")</span>
+                                            @Html.HiddenFor(modelItem => Model.Experiencias[idxRow].FechaFin)
+                                            <input type="text" id="item_FechaFin" class="form-control edit-mode date-picker" value="@(Model.Experiencias[idxRow].FechaFin != null ? ((DateTime)Model.Experiencias[idxRow].FechaFin).ToString("yyyy-MM-dd") : "")" data-date-format="yyyy-mm-dd" data-plugin-datepicker required />
+                                        </td>
+                                        <td style="vertical-align:middle;">
+                                            <span class="display-mode" id="lblDetalle"> @Model.Experiencias[idxRow].Detalle</span>
+                                            @Html.HiddenFor(modelItem => Model.Experiencias[idxRow].Detalle)
+                                            <input type="text" id="item_Detalle" class="form-control edit-mode" value="@Model.Experiencias[idxRow].Detalle" />
+                                        </td>
+                                        <td style="font-size: 1.3em;padding-top:8px; padding-bottom:8px;vertical-align:middle;">
+                                            <div style="display:inline-flex;">
+                                                <button class="edit-expe display-mode button-trasparent" title="Editar" style=""><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                                                &nbsp;<button class="delete-expe display-mode button-trasparent" title="Eliminar" style="height: 30px;"><i class="fa fa-times" aria-hidden="true"></i></button>
+                                                <button class="cancel-expe edit-mode button-trasparent" title="Cancelar edición" style="display: none;"><i class="fa fa-times" aria-hidden="true"></i></button>
+                                                &nbsp;<button class="save-expe edit-mode button-trasparent" title="Confirmar cambios" style="display: none;"><i class="fa fa-check" aria-hidden="true"></i></button>
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="form-group col-md-12">
+                <label class="control-label"> Estudios y Especializaciones</label>
+                <div style="padding-bottom:10px; padding-right:3px;width:100%; overflow-x: auto;">
+                    <button id="btnNuevoEstudio" onclick="return nuevo_estudio();" class="button-trasparent btn btn-primary" title="Agregar nuevo estudio" style="float:right;"><i class="fa fa-plus"></i></button>
+                </div>
+                <div class="table-responsive">
+                    <table id="tbEstudios" class="table table-bordered table-hover" cellspacing="0">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>
+                                    Título
+                                </th>
+                                <th>
+                                    Centro de Estudio
+                                </th>
+                                <th style="width:140px;">
+                                    Fecha Inicio
+                                </th>
+                                <th style="width:140px;">
+                                    Fecha Fin
+                                </th>
+                                <th style="width:85px;"> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Estudios != null)
+                            {
+                                for (int idxRow = 0; idxRow < Model.Estudios.Count; idxRow++)
+                                {
+                                    <tr>
+                                        <td style="vertical-align:middle;">
+                                            @Html.HiddenFor(modelItem => Model.Estudios[idxRow].Id)
+                                            @Html.HiddenFor(modelItem => Model.Estudios[idxRow].Tipo)
+                                            @Html.HiddenFor(modelItem => Model.Estudios[idxRow].Accion)
+                                            <span class="display-mode" id="lblTitulo"> @Model.Estudios[idxRow].Cargo</span>
+                                            @Html.HiddenFor(modelItem => @Model.Estudios[idxRow].Cargo)
+                                            <input type="text" id="item_Titulo" class="form-control edit-mode" value="@Model.Estudios[idxRow].Cargo" required />
+                                        </td>
+                                        <td style="vertical-align:middle;">
+                                            <span class="display-mode" id="lblCentroEstudio"> @Model.Estudios[idxRow].Empresa</span>
+                                            @Html.HiddenFor(modelItem => Model.Estudios[idxRow].Empresa)
+                                            <input type="text" id="item_CentroEstudio" class="form-control edit-mode" value="@Model.Estudios[idxRow].Empresa" required />
+                                        </td>
+                                        <td style="vertical-align:middle;">
+                                            <span class="display-mode" id="lblFechaIni"> @Model.Estudios[idxRow].FechaInicio.ToString("yyyy-MM-dd")</span>
+                                            @Html.HiddenFor(modelItem => Model.Estudios[idxRow].FechaInicio)
+                                            <input type="text" id="item_FechaIni" class="form-control edit-mode date-picker" value="@Model.Estudios[idxRow].FechaInicio.ToString("yyyy-MM-dd")" data-date-format="yyyy-mm-dd" data-plugin-datepicker required />
+                                        </td>
+                                        <td style="vertical-align:middle;">
+                                            <span class="display-mode" id="lblFechaFin"> @(Model.Estudios[idxRow].FechaFin != null ? ((DateTime)Model.Estudios[idxRow].FechaFin).ToString("yyyy-MM-dd") : "")</span>
+                                            @Html.HiddenFor(modelItem => Model.Estudios[idxRow].FechaFin)
+                                            <input type="text" id="item_FechaFin" class="form-control edit-mode date-picker" value="@(Model.Estudios[idxRow].FechaFin != null ? ((DateTime)Model.Estudios[idxRow].FechaFin).ToString("yyyy-MM-dd") : "")" data-date-format="yyyy-mm-dd" data-plugin-datepicker />
+                                        </td>
+                                        <td style="font-size: 1.3em;padding-top:8px; padding-bottom:8px;vertical-align:middle;">
+                                            <div style="display:inline-flex;">
+                                                <button class="edit-estu display-mode button-trasparent" title="Editar" style=""><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                                                &nbsp;<button class="delete-estu display-mode button-trasparent" title="Eliminar" style="height: 30px;"><i class="fa fa-times" aria-hidden="true"></i></button>
+                                                <button class="cancel-estu edit-mode button-trasparent" title="Cancelar edición" style="display: none;"><i class="fa fa-times" aria-hidden="true"></i></button>
+                                                &nbsp;<button class="save-estu edit-mode button-trasparent" title="Confirmar cambios" style="display: none;"><i class="fa fa-check" aria-hidden="true"></i></button>
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="line"></div>
+        <div class="form-group col-md-12">
+            <div class="offset-sm-3 col-md-10">
+                <a class="btn btn-default" href="@Url.Action("Index")"><i class="fa fa-arrow-left" aria-hidden="true"></i> Cancelar</a>
+                <button type="submit" class="btn btn-primary" onclick="return validar_experiencia('@Model.EsEmpleado.ToString()');"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
+            </div>
+        </div>
+    </div>
+}
+<style>
+    .tt-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 1000;
+        display: none;
+        float: left;
+        min-width: 160px;
+        padding: 5px 0;
+        margin: 2px 0 0;
+        list-style: none;
+        font-size: 14px;
+        background-color: #ffffff;
+        border: 1px solid #cccccc;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        border-radius: 4px;
+        -webkit-box-shadow: 0 3px 5px rgba(0, 0, 0, 0.175);
+        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.175);
+        background-clip: padding-box;
+        cursor: pointer;
+    }
+
+    .tt-suggestion {
+        display: block;
+        padding: 3px 20px;
+        clear: both;
+        color: #333333;
+        white-space: nowrap;
+    }
+
+    .edit-mode {
+        padding-bottom: 2px;
+        /*padding-top: 2px;*/
+    }
+
+    .line {
+        border-bottom: 2px dashed #eee !important;
+    }
+</style>
+<script>
+
+    function validar_experiencia(esEmpleado) {
+        if (esEmpleado == "True") {
+            if ($("#frmAccion").valid()) {
+                if ($('#tbPostulantes >tbody >tr').length == 0 || $('#tbEstudios >tbody >tr').length == 0) {
+                    alert('Falta agregar experiencia y estudios del empleado');
+                    return mostar_info_perfil();
+                }
+            } 
+        }
+        return true;
+    }
+
+    function generar_usuario() {
+        var nombre = $("#Nombres").val();
+        var apellido = $("#ApellidoPaterno").val();
+        if (nombre != "" && apellido != "") {
+            $("#Usuario").val((nombre.split(' ')[0]).toLowerCase() + '.' + (apellido.split(' ')[0]).toLowerCase());
+        }
+    }
+
+    function mostar_info_general() {
+        $('#mnInfoGeneral').addClass('active');
+        $('#mnInfoPerfil').removeClass('active');
+        $('#divInfoGeneral').show();
+        $('#divInfoPerfil').hide();
+        return false;
+    }
+
+    function mostar_info_perfil() {
+        if ($("#frmAccion").valid()) {
+            $('#mnInfoPerfil').addClass('active');
+            $('#mnInfoGeneral').removeClass('active');
+            $('#divInfoGeneral').hide();
+            $('#divInfoPerfil').show();
+        } else {
+            $("#frmAccion").submit();
+        }
+        return false;
+    }
+    var idxRowExpe = @(Model.Experiencias != null ? Model.Experiencias.Count : 0);
+    var idxRowEstu = @(Model.Estudios != null ? Model.Estudios.Count : 0);
+
+    function nueva_experiencia() {
+        try {
+            var fila = '<tr><td style="vertical-align:middle;">';
+            fila += '<input id="Experiencias_' + idxRowExpe + '__Accion" name="Experiencias[' + idxRowExpe + '].Accion" type="hidden" value="0">';
+            fila += '<input id="Experiencias_' + idxRowExpe + '__Tipo" name="Experiencias[' + idxRowExpe + '].Tipo" type="hidden" value="X">';
+            fila += '<input id="Experiencias_' + idxRowExpe + '__Empresa" name="Experiencias[' + idxRowExpe + '].Empresa" type="hidden" value="">';
+            fila += '<input id="Experiencias_' + idxRowExpe + '__Cargo" name="Experiencias[' + idxRowExpe + '].Cargo" type="hidden" value="">';
+            fila += '<input id="Experiencias_' + idxRowExpe + '__FechaInicio" name="Experiencias[' + idxRowExpe + '].FechaInicio" type="hidden" value="">';
+            fila += '<input id="Experiencias_' + idxRowExpe + '__FechaFin" name="Experiencias[' + idxRowExpe + '].FechaFin" type="hidden" value="">';
+            fila += '<input id="Experiencias_' + idxRowExpe + '__Detalle" name="Experiencias[' + idxRowExpe + '].Detalle" type="hidden" value="">';
+            fila += '<span class="display-mode" id="lblEmpresa" style=""></span><input type="text" class="form-control edit-mode" id="item_Empresa" name="item_Empresa" style="display: none;" required></td>';
+            fila += '<td style="vertical-align:middle;"><span class="display-mode" id="lblCargo" style=""></span><input type="text" class="form-control edit-mode" id="item_Cargo" name="item_Cargo" style="display: none;" required></td>';
+            fila += '<td style="vertical-align:middle;"><span class="display-mode" id="lblFechaIni" style=""></span><input type="text" class="form-control edit-mode date-picker" id="item_FechaIni" name="item_FechaIni" style="display: none;" data-date-format="yyyy-mm-dd" data-plugin-datepicker required></td>';
+            fila += '<td style="vertical-align:middle;"><span class="display-mode" id="lblFechaFin" style=""></span><input type="text" class="form-control edit-mode date-picker" id="item_FechaFin" name="item_FechaIni" style="display: none;" data-date-format="yyyy-mm-dd" data-plugin-datepicker required></td>';
+            fila += '<td style="vertical-align:middle;"><span class="display-mode" id="lblDetalle" style=""></span><input type="text" class="form-control edit-mode" id="item_Detalle" name="item_Detalle" style="display: none;" required></td>';
+            //Edicion de la file
+            fila += '<td style="font-size: 1.3em;padding-top:9px; padding-bottom:8px;vertical-align:middle;"><div style="display:inline-flex;">';
+            fila += '<button class="edit-expe display-mode button-trasparent" title="Editar" style=""><i class="fa fa-pencil" aria-hidden="true"></i></button>';
+            fila += '&nbsp;<button class="delete-expe display-mode button-trasparent" title="Eliminar" style="height: 30px;"><i class="fa fa-times" aria-hidden="true"></i></button>';
+            fila += '<button class="cancel-expe edit-mode button-trasparent" title="Cancelar edición" style="display: none;"><i class="fa fa-times" aria-hidden="true"></i></button>';
+            fila += '&nbsp;<button class="save-expe edit-mode button-trasparent" title="Confirmar cambios" style="display: none;"><i class="fa fa-check" aria-hidden="true"></i></button>';
+            fila += '</div></td></tr>';
+            $('#tbPostulantes').append(fila);
+            $('#tbPostulantes tr:last').find('.edit-expe, .cancel-expe').on('click', function () {
+                var tr = $(this).parents('tr:first');
+                tr.find('.edit-mode, .display-mode').toggle();
+                if (tr.find("#lblEmpresa").text() == "")
+                    $(this).closest('tr').remove();
+                return false;
+            });
+            $('#tbPostulantes tr:last').find('.delete-expe').on('click', function () {
+                if (confirm("Esta seguro de eliminar experiencia?"))
+                    $(this).closest('tr').remove();
+                return false;
+            });
+            $('#tbPostulantes tr:last').find('.date-picker').datepicker();
+            $('#tbPostulantes tr:last').find('.save-expe').on('click', function () {
+                var tr = $(this).parents('tr:first');
+                var idx = tr.index(); //$(this).closest('tr').index();
+                var txtEmpresa = tr.find("#item_Empresa");
+                var txtCargo = tr.find("#item_Cargo");
+                var txtFechaIni = tr.find("#item_FechaIni");
+                var txtFechaFin = tr.find("#item_FechaFin");
+                if (txtEmpresa.val() == "") {
+                    txtEmpresa.focus();
+                    return false;
+                }
+                if (txtCargo.val() == "") {
+                    txtCargo.focus();
+                    return false;
+                }
+                if (txtFechaIni.val() == "") {
+                    txtFechaIni.focus();
+                    return false;
+                }
+                if (txtFechaFin.val() == "") {
+                    txtFechaFin.focus();
+                    return false;
+                }
+                tr.find("#lblEmpresa").text(txtEmpresa.val());
+                tr.find("#lblCargo").text(txtCargo.val());
+                tr.find("#lblFechaIni").text(txtFechaIni.val());
+                tr.find("#lblFechaFin").text(txtFechaFin.val());
+                tr.find("#lblDetalle").text(tr.find("#item_Detalle").val());
+
+                tr.find("#Experiencias_" + idx + "__Accion").val(1);
+                tr.find("#Experiencias_" + idx + "__Empresa").val(txtEmpresa.val());
+                tr.find("#Experiencias_" + idx + "__Cargo").val(txtCargo.val());
+                tr.find("#Experiencias_" + idx + "__FechaInicio").val(txtFechaIni.val());
+                tr.find("#Experiencias_" + idx + "__FechaFin").val(txtFechaFin.val());
+                tr.find("#Experiencias_" + idx + "__Detalle").val(tr.find("#item_Detalle").val());
+
+                tr.find('.edit-mode, .display-mode').toggle();
+                return false;
+            });
+            $('#tbPostulantes tr:last').find('.edit-mode, .display-mode').toggle();
+            idxRowExpe++;
+        } catch (ex) {
+            alert(ex);
+        }
+        return false;
+    }
+
+    function nuevo_estudio() {
+        try {
+            var fila = '<tr><td style="vertical-align:middle;">';
+            fila += '<input id="Estudios_' + idxRowEstu + '__Accion" name="Estudios[' + idxRowEstu + '].Accion" type="hidden" value="0">';
+            fila += '<input id="Estudios_' + idxRowEstu + '__Tipo" name="Estudios[' + idxRowEstu + '].Tipo" type="hidden" value="E">';
+            fila += '<input id="Estudios_' + idxRowEstu + '__Empresa" name="Estudios[' + idxRowEstu + '].Empresa" type="hidden" value="">';
+            fila += '<input id="Estudios_' + idxRowEstu + '__Cargo" name="Estudios[' + idxRowEstu + '].Cargo" type="hidden" value="">';
+            fila += '<input id="Estudios_' + idxRowEstu + '__FechaInicio" name="Estudios[' + idxRowEstu + '].FechaInicio" type="hidden" value="">';
+            fila += '<input id="Estudios_' + idxRowEstu + '__FechaFin" name="Estudios[' + idxRowEstu + '].FechaFin" type="hidden" value="">';
+            fila += '<span class="display-mode" id="lblTitulo" style=""></span><input type="text" class="form-control edit-mode" id="item_Titulo" name="item_Titulo" style="display: none;" required></td>';
+            fila += '<td style="vertical-align:middle;"><span class="display-mode" id="lblCentroEstudio" style=""></span><input type="text" class="form-control edit-mode" id="item_CentroEstudio" name="item_CentroEstudio" style="display: none;" required></td>';
+            fila += '<td style="vertical-align:middle;"><span class="display-mode" id="lblFechaIni" style=""></span><input type="text" class="form-control edit-mode date-picker" id="item_FechaIni" name="item_FechaIni" style="display: none;" data-date-format="yyyy-mm-dd" data-plugin-datepicker required></td>';
+            fila += '<td style="vertical-align:middle;"><span class="display-mode" id="lblFechaFin" style=""></span><input type="text" class="form-control edit-mode date-picker" id="item_FechaFin" name="item_FechaIni" style="display: none;" data-date-format="yyyy-mm-dd" data-plugin-datepicker required></td>';
+            //Edicion de la file
+            fila += '<td style="font-size: 1.3em;padding-top:9px; padding-bottom:8px;vertical-align:middle;"><div style="display:inline-flex;">';
+            fila += '<button class="edit-estu display-mode button-trasparent" title="Editar" style=""><i class="fa fa-pencil" aria-hidden="true"></i></button>';
+            fila += '&nbsp;<button class="delete-estu display-mode button-trasparent" title="Eliminar" style="height: 30px;"><i class="fa fa-times" aria-hidden="true"></i></button>';
+            fila += '<button class="cancel-estu edit-mode button-trasparent" title="Cancelar edición" style="display: none;"><i class="fa fa-times" aria-hidden="true"></i></button>';
+            fila += '&nbsp;<button class="save-estu edit-mode button-trasparent" title="Confirmar cambios" style="display: none;"><i class="fa fa-check" aria-hidden="true"></i></button>';
+            fila += '</div></td></tr>';
+            $('#tbEstudios').append(fila);
+            $('#tbEstudios tr:last').find('.edit-estu, .cancel-estu').on('click', function () {
+                var tr = $(this).parents('tr:first');
+                tr.find('.edit-mode, .display-mode').toggle();
+                if (tr.find("#lblTitulo").text() == "")
+                    $(this).closest('tr').remove();
+                return false;
+            });
+            $('#tbEstudios tr:last').find('.delete-estu').on('click', function () {
+                if (confirm("Esta seguro de eliminar estudio?"))
+                    $(this).closest('tr').remove();
+                return false;
+            });
+            $('#tbEstudios tr:last').find('.date-picker').datepicker();
+            $('#tbEstudios tr:last').find('.save-estu').on('click', function () {
+                var tr = $(this).parents('tr:first');
+                var idx = tr.index();
+                var txtTitulo = tr.find("#item_Titulo");
+                var txtCentroEstudio = tr.find("#item_CentroEstudio");
+                var txtFechaIni = tr.find("#item_FechaIni");
+                var txtFechaFin = tr.find("#item_FechaFin");
+                if (txtTitulo.val() == "") {
+                    txtTitulo.focus();
+                    return false;
+                }
+                if (txtCentroEstudio.val() == "") {
+                    txtCentroEstudio.focus();
+                    return false;
+                }
+                if (txtFechaIni.val() == "") {
+                    txtFechaIni.focus();
+                    return false;
+                }
+                //if (txtFechaFin.val() == "") {
+                //    txtFechaFin.focus();
+                //    return false;
+                //}
+                tr.find("#lblTitulo").text(txtTitulo.val());
+                tr.find("#lblCentroEstudio").text(txtCentroEstudio.val());
+                tr.find("#lblFechaIni").text(txtFechaIni.val());
+                tr.find("#lblFechaFin").text(txtFechaFin.val());
+
+                tr.find("#Estudios_" + idx + "__Accion").val(1);
+                tr.find("#Estudios_" + idx + "__Empresa").val(txtCentroEstudio.val());
+                tr.find("#Estudios_" + idx + "__Cargo").val(txtTitulo.val());
+                tr.find("#Estudios_" + idx + "__FechaInicio").val(txtFechaIni.val());
+                tr.find("#Estudios_" + idx + "__FechaFin").val(txtFechaFin.val());
+
+                tr.find('.edit-mode, .display-mode').toggle();
+                return false;
+            });
+            $('#tbEstudios tr:last').find('.edit-mode, .display-mode').toggle();
+            idxRowEstu++;
+        } catch (ex) {
+            alert(ex);
+        }
+        return false;
+    }
+
+    function cargar_skill(id) {
+        ajax_general("/Candidato/SkillTecnico/" + id, "GET", "", procesar_skill);
+    }
+
+    function procesar_skill(data) {
+        tecnologias.clear();
+        tecnologias.local= $.map(data, function (item) {
+            return {
+                text: item.Valor
+            };
+        });
+        tecnologias.initialize(true);
+    }
+    var tecnologias;
+
+    window.onload = function () {
+        //var data = [{ "text": "MVC" }];
+        var data = @Html.Raw(JsonConvert.SerializeObject(Model.Skill));
+        tecnologias = new Bloodhound({
+            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('text'),
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            local: $.map(data, function (item) {
+                return {
+                    text: item.Valor
+                };
+            })
+        });
+        tecnologias.initialize();
+        var elt = $('#ConocimientoTecnico');
+        elt.tagsinput({
+            typeaheadjs: [{
+                minLength: 1,
+                highlight: true,
+            }, {
+                minlength: 1,
+                name: 'tecnologias',
+                displayKey: 'text',
+                valueKey: 'text',
+                source: tecnologias.ttAdapter()
+            }]
+        });
+        configurar_evento_tablas();
+        //$('.date-picker').datepicker();
+    }
+
+    function configurar_evento_tablas() {
+        $('.edit-mode').hide();
+        $('.edit-expe, .cancel-expe, .edit-estu, .cancel-estu').on('click', function () {
+            var tr = $(this).parents('tr:first');
+            tr.find('.edit-mode, .display-mode').toggle();
+            return false;
+        });
+
+        $('.save-expe').on('click', function () {
+            var tr = $(this).parents('tr:first');
+            var idx = $(this).parent().index();
+            var txtEmpresa = tr.find("#item_Empresa");
+            var txtCargo = tr.find("#item_Cargo");
+            var txtFechaIni = tr.find("#item_FechaIni");
+            var txtFechaFin = tr.find("#item_FechaFin");
+            if (txtEmpresa.val() == "") {
+                txtEmpresa.focus();
+                return false;
+            }
+            if (txtCargo.val() == "") {
+                txtCargo.focus();
+                return false;
+            }
+            if (txtFechaIni.val() == "") {
+                txtFechaIni.focus();
+                return false;
+            }
+            if (txtFechaFin.val() == "") {
+                txtFechaFin.focus();
+                return false;
+            }
+            tr.find("#lblEmpresa").text(txtEmpresa.val());
+            tr.find("#lblCargo").text(txtCargo.val());
+            tr.find("#lblFechaIni").text(txtFechaIni.val());
+            tr.find("#lblFechaFin").text(txtFechaFin.val());
+            tr.find("#lblDetalle").text(tr.find("#item_Detalle").val());
+
+            tr.find("#Experiencias_" + idx + "__Accion").val(2);
+            tr.find("#Experiencias_" + idx + "__Empresa").val(txtEmpresa.val());
+            tr.find("#Experiencias_" + idx + "__Cargo").val(txtCargo.val());
+            tr.find("#Experiencias_" + idx + "__FechaInicio").val(txtFechaIni.val());
+            tr.find("#Experiencias_" + idx + "__FechaFin").val(txtFechaFin.val());
+            tr.find("#Experiencias_" + idx + "__Detalle").val(tr.find("#item_Detalle").val());
+
+            tr.find('.edit-mode, .display-mode').toggle();
+            return false;
+        });
+
+        $('.delete-expe').on('click', function () {
+            if (confirm("Esta seguro de eliminar experiencia?")) {
+                var tr = $(this).parents('tr:first');
+                var idx = tr.index();
+                tr.find("#Experiencias_" + idx + "__Accion").val(3);
+                tr.hide();
+                //$(this).closest('tr').remove();
+            }
+            return false;
+        });
+
+        //Estudidos
+        $('.save-estu').on('click', function () {
+            var tr = $(this).parents('tr:first');
+            var idx = tr.index();
+            var txtTitulo = tr.find("#item_Titulo");
+            var txtCentroEstudio = tr.find("#item_CentroEstudio");
+            var txtFechaIni = tr.find("#item_FechaIni");
+            var txtFechaFin = tr.find("#item_FechaFin");
+            if (txtTitulo.val() == "") {
+                txtTitulo.focus();
+                return false;
+            }
+            if (txtCentroEstudio.val() == "") {
+                txtCentroEstudio.focus();
+                return false;
+            }
+            if (txtFechaIni.val() == "") {
+                txtFechaIni.focus();
+                return false;
+            }
+            //if (txtFechaFin.val() == "") {
+            //    txtFechaFin.focus();
+            //    return false;
+            //}
+            tr.find("#lblTitulo").text(txtTitulo.val());
+            tr.find("#lblCentroEstudio").text(txtCentroEstudio.val());
+            tr.find("#lblFechaIni").text(txtFechaIni.val());
+            tr.find("#lblFechaFin").text(txtFechaFin.val());
+
+            tr.find("#Estudios_" + idx + "__Accion").val(2);
+            tr.find("#Estudios_" + idx + "__Empresa").val(txtCentroEstudio.val());
+            tr.find("#Estudios_" + idx + "__Cargo").val(txtTitulo.val());
+            tr.find("#Estudios_" + idx + "__FechaInicio").val(txtFechaIni.val());
+            tr.find("#Estudios_" + idx + "__FechaFin").val(txtFechaFin.val());
+            tr.find('.edit-mode, .display-mode').toggle();
+            return false;
+        });
+
+        $('.delete-estu').on('click', function () {
+            if (confirm("Esta seguro de eliminar experiencia?")) {
+                var tr = $(this).parents('tr:first');
+                var idx = tr.index();
+                tr.find("#Estudios_" + idx + "__Accion").val(3);
+                tr.hide();
+                //$(this).closest('tr').remove();
+            }
+            return false;
+        });
+    }
+
+</script>
