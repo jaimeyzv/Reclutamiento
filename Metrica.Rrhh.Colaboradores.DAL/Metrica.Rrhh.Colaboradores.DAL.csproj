@@ -71,6 +71,7 @@
     <Compile Include="Interfaz\IDSeguridad.cs" />
     <Compile Include="Interfaz\IDUtil.cs" />
     <Compile Include="obj\Debug\.NETFramework,Version=v4.5.AssemblyAttributes.cs" />
+    <Compile Include="obj\Release\.NETFramework,Version=v4.5.AssemblyAttributes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
