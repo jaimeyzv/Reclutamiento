@@ -71,13 +71,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BCliente.cs" />
-    <Compile Include="BPuesto.cs" />
-    <Compile Include="BRequerimiento.cs" />
-    <Compile Include="BSeguridad.cs" />
-    <Compile Include="BUtil.cs" />
+    <Compile Include="BEmpleado.cs" />
     <Compile Include="Common\BClientQueue.cs" />
     <Compile Include="Common\BClientService.cs" />
+    <Compile Include="BNotificacion.cs" />
+    <Compile Include="BPuesto.cs" />
+    <Compile Include="BUtil.cs" />
+    <Compile Include="BCliente.cs" />
+    <Compile Include="BRequerimiento.cs" />
+    <Compile Include="BSeguridad.cs" />
     <Compile Include="Common\ServiceClientFactory.cs" />
     <Compile Include="Connected Services\WSCandidato\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -104,8 +106,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="obj\Debug\.NETFramework,Version=v4.5.AssemblyAttributes.cs" />
-    <Compile Include="obj\Release\.NETFramework,Version=v4.5.AssemblyAttributes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -194,8 +194,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="iron.json" />
-    <None Include="obj\Debug\Metrica.Rrhh.Colaboradores.BL.csprojAssemblyReference.cache" />
-    <None Include="obj\Release\Metrica.Rrhh.Colaboradores.BL.csproj.App.config" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\Metrica.Rrhh.Colaboradores.Entity.DTO.CandidatoDTO.datasource" />
     <None Include="Properties\DataSources\Metrica.Rrhh.Colaboradores.Entity.DTO.ClienteDTO.datasource" />
@@ -283,11 +281,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="bin\Debug\" />
-    <Folder Include="bin\Release\" />
-    <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />

@@ -206,9 +206,22 @@
     </Compile>
     <Compile Include="Constantes.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CandidatoController.cs" />
+    <Compile Include="Controllers\EmpleadoController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PostulacionController.cs" />
+    <Compile Include="Controllers\PuestoController.cs" />
+    <Compile Include="Controllers\RequerimientoController.cs" />
+    <Compile Include="Controllers\SeguridadController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CandidatoViewModel.cs" />
+    <Compile Include="Models\EmpleadoViewModel.cs" />
+    <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\PostulacionViewModel.cs" />
+    <Compile Include="Models\RequerimientoViewModel.cs" />
+    <Compile Include="Models\SeguridadViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HtmlUtil.cs" />
   </ItemGroup>
@@ -454,9 +467,16 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Seguridad.cshtml" />
+    <Content Include="Views\Seguridad\Index.cshtml" />
     <Content Include="Views\Shared\_Logo.cshtml" />
     <Content Include="Views\Shared\_Menu.cshtml" />
+    <Content Include="Views\Requerimiento\Index.cshtml" />
+    <Content Include="Views\Requerimiento\_Form.cshtml" />
+    <Content Include="Views\Requerimiento\Create.cshtml" />
+    <Content Include="Views\Requerimiento\Edit.cshtml" />
+    <Content Include="Views\Requerimiento\Postulantes.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper-utils.min.js.map" />
@@ -466,27 +486,19 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Puesto\Create.cshtml" />
-    <Content Include="Views\Puesto\Edit.cshtml" />
+    <Content Include="Views\Empleado\Index.cshtml" />
+    <Content Include="Views\Empleado\Create.cshtml" />
+    <Content Include="Views\Empleado\Edit.cshtml" />
     <Content Include="Views\Puesto\Index.cshtml" />
+    <Content Include="Views\Puesto\Create.cshtml" />
     <Content Include="Views\Puesto\_Form.cshtml" />
-    <Content Include="Views\Requerimiento\Create.cshtml" />
-    <Content Include="Views\Requerimiento\Edit.cshtml" />
-    <Content Include="Views\Requerimiento\Index.cshtml" />
-    <Content Include="Views\Requerimiento\Postulantes.cshtml" />
-    <Content Include="Views\Requerimiento\_Form.cshtml" />
-    <Content Include="Views\Seguridad\Index.cshtml" />
-    <Content Include="Views\Candidato\Create.cshtml" />
-    <Content Include="Views\Candidato\Edit.cshtml" />
-    <Content Include="Views\Candidato\Index.cshtml" />
-    <Content Include="Views\Candidato\_Form.cshtml" />
+    <Content Include="Views\Puesto\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Dll\" />
-    <Folder Include="Models\" />
     <Folder Include="Properties\PublishProfiles\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

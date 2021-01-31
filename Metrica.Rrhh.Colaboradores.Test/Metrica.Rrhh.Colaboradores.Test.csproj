@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\MSTest.TestAdapter.1.3.2\build\net45\MSTest.TestAdapter.props" Condition="Exists('..\packages\MSTest.TestAdapter.1.3.2\build\net45\MSTest.TestAdapter.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{03837B52-CF04-4B48-A88B-C531F963432A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Metrica.Rrhh.Colaboradores.Test</RootNamespace>
+    <AssemblyName>Metrica.Rrhh.Colaboradores.Test</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">15.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
+    <IsCodedUITest>False</IsCodedUITest>
+    <TestProjectType>UnitTest</TestProjectType>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MSTest.TestFramework.1.3.2\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MSTest.TestFramework.1.3.2\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.6\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Connected Services\WSCandidato\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\WSNotificacion\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\WSPostulacion\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\WSRequerimiento\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Mensajeria\NotificacionTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="REST\PuestoTest.cs" />
+    <Compile Include="REST\SeguridadTest.cs" />
+    <Compile Include="SOA\RequerimientoTest.cs" />
+    <Compile Include="SOA\CandidatoTest.cs" />
+    <Compile Include="SOA\PostulacionTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Connected Services\WSCandidato\CandidatoService.wsdl" />
+    <None Include="Connected Services\WSCandidato\CandidatoService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WSCandidato\CandidatoService1.wsdl" />
+    <None Include="Connected Services\WSCandidato\CandidatoService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WSCandidato\CandidatoService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WSCandidato\CandidatoService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WSNotificacion\NotificacionService.wsdl" />
+    <None Include="Connected Services\WSNotificacion\NotificacionService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WSNotificacion\NotificacionService1.wsdl" />
+    <None Include="Connected Services\WSNotificacion\NotificacionService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WSNotificacion\NotificacionService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WSNotificacion\NotificacionService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WSPostulacion\PostulacionService.wsdl" />
+    <None Include="Connected Services\WSPostulacion\PostulacionService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WSPostulacion\PostulacionService1.wsdl" />
+    <None Include="Connected Services\WSPostulacion\PostulacionService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WSPostulacion\PostulacionService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WSPostulacion\PostulacionService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WSRequerimiento\Metrica.Rrhh.Colaboradores.Test.WSRequerimiento.RequerimientoDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\WSRequerimiento\RequerimientoService.wsdl" />
+    <None Include="Connected Services\WSRequerimiento\RequerimientoService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WSRequerimiento\RequerimientoService1.wsdl" />
+    <None Include="Connected Services\WSRequerimiento\RequerimientoService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WSRequerimiento\RequerimientoService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WSRequerimiento\RequerimientoService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\Metrica.Rrhh.Colaboradores.Entity.DTO.CandidatoDTO.datasource" />
+    <None Include="Properties\DataSources\Metrica.Rrhh.Colaboradores.Entity.DTO.PostulanteDTO.datasource" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Metrica.Rrhh.Colaboradores.Entity\Metrica.Rrhh.Colaboradores.Entity.csproj">
+      <Project>{8CE2A3AD-9144-4163-A8C1-DA82AEACAD92}</Project>
+      <Name>Metrica.Rrhh.Colaboradores.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Metrica.Rrhh.Colaboradores.Service\Metrica.Rrhh.Colaboradores.Service.csproj">
+      <Project>{C9514C52-A595-44F0-B491-3367B01289AB}</Project>
+      <Name>Metrica.Rrhh.Colaboradores.Service</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\WSCandidato\" />
+    <WCFMetadataStorage Include="Connected Services\WSNotificacion\" />
+    <WCFMetadataStorage Include="Connected Services\WSPostulacion\" />
+    <WCFMetadataStorage Include="Connected Services\WSRequerimiento\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WSRequerimiento\RequerimientoService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WSRequerimiento\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WSRequerimiento\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WSRequerimiento\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="Connected Services\WSNotificacion\NotificacionService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WSNotificacion\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WSNotificacion\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WSNotificacion\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WSCandidato\CandidatoService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WSCandidato\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WSCandidato\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WSCandidato\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WSPostulacion\PostulacionService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WSPostulacion\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WSPostulacion\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WSPostulacion\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
+    <Error Condition="!Exists('..\packages\MSTest.TestAdapter.1.3.2\build\net45\MSTest.TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSTest.TestAdapter.1.3.2\build\net45\MSTest.TestAdapter.props'))" />
+    <Error Condition="!Exists('..\packages\MSTest.TestAdapter.1.3.2\build\net45\MSTest.TestAdapter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSTest.TestAdapter.1.3.2\build\net45\MSTest.TestAdapter.targets'))" />
+  </Target>
+  <Import Project="..\packages\MSTest.TestAdapter.1.3.2\build\net45\MSTest.TestAdapter.targets" Condition="Exists('..\packages\MSTest.TestAdapter.1.3.2\build\net45\MSTest.TestAdapter.targets')" />
+</Project>

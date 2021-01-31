@@ -1,0 +1,306 @@
+﻿@model PagedList.IPagedList<Metrica.Rrhh.Colaboradores.Entity.Model.PostulanteModel>
+@using PagedList.Mvc
+
+@{
+    ViewBag.Title = "Postulaciones";
+}
+
+@Styles.Render("~/Content/paginacion")
+
+<div style="background:#ffffff;padding:10px;">
+    @using (Html.BeginForm(null, null, FormMethod.Get, new { id = "frmFiltro", enctype = "multipart/form-data" }))
+    {
+        @Html.Hidden("estado", ViewBag.estado as string)
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <nav class="navbar-acciones" style="float:left;">
+            <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+                <li><a class='@(string.IsNullOrEmpty(ViewBag.estado) ? "disabled" : "")' href="#" onclick="return activar_filtro_estado(this);">Aprobados</a></li>
+            </ul>
+        </nav>
+        <div class="form-inline float-right" style="padding-top:6px;">
+            @*<div class="form-group">
+                    <label for="proceso">Puestos</label>
+                </div>
+                <div class="form-group" style="padding-right:10px;">
+                    @Html.DropDownList("puesto", (SelectList)ViewBag.puestos, "--Todos--", new { @class = "form-control" })
+                </div>*@
+            <div class="form-group">
+                <label for="proceso">Cliente</label>
+            </div>
+            <div class="form-group" style="padding-right:10px;">
+                @Html.DropDownList("cliente", (SelectList)ViewBag.clientes, "--Todos--", new { @class = "form-control" })
+            </div>
+            <div class="form-group" style="padding-right:3px; max-width:250px;">
+                <div class="input-group">
+                    @Html.TextBox("filtro_por", ViewBag.filtro_por as string, new { @class = "form-control", placeholder = "Buscar por..." })
+                    <div class="input-group-append"><button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button></div>
+                </div>
+
+            </div>
+        </div>
+    }
+    <div style="padding-top:10px; padding-bottom:10px; padding-right:3px;padding-left:3px;width:100%; overflow-x: auto;">
+        <a class="btn btn-primary" style="float:left;" href="@Url.Action("Exportar", new {estado = ViewBag.estado, cliente = ViewBag.cliente, filtro_por = ViewBag.filtro_por})"><i class="fa fa-file-excel-o"></i> Excel</a>
+        @*<a class="btn btn-primary" style="float:right;" href="@Url.Action("Create")"><i class="fa fa-plus"></i> Nuevo</a>*@
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover" cellspacing="0">
+            <thead class="thead-dark">
+                <tr>
+                    <th></th>
+                    <th style="width:80px;">
+                        # Req
+                    </th>
+                    <th style="width:80px;">
+                        Dni
+                    </th>
+                    <th>
+                        Nombres
+                    </th>
+                    <th>
+                        Cliente
+                    </th>
+                    <th>
+                        Perfil
+                    </th>
+                    <th style="width:130px;">
+                        F. Postulación
+                    </th>
+                    <th>
+                        Pretención
+                    </th>
+                    <th>
+                        Observación
+                    </th>
+                    <th style="width:89px;"> </th>
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <div style="display:inline; font-size: 1.3em;padding-top:2px; padding-bottom:2px;">
+                            @if (item.Estado == "RE")
+                            {
+                                <i id="ic_estado" class="fa fa-cog" aria-hidden="true" title="Registrado"></i>
+                            }
+                            else
+                            {
+                                <i id="ic_estado" class="fa fa-check" aria-hidden="true" title="Aprobado"></i>
+                            }
+                        </div>
+                    </td>
+                    <td style="vertical-align:middle;">
+                        <span class="display-mode" id="lblIdRequerimiento">@item.IdRequerimiento</span>
+                        @Html.LabelFor(modelItem => item.IdRequerimiento, item.IdRequerimiento.ToString(), new { @class = "edit-mode" })
+                    </td>
+                    <td style="vertical-align:middle;">
+                        <span class="display-mode">
+                            @item.Dni
+                        </span>
+                        @Html.HiddenFor(modelItem => item.IdPuesto)
+                        @Html.HiddenFor(modelItem => item.IdCliente)
+                        @Html.HiddenFor(modelItem => item.Email)
+                        @Html.HiddenFor(modelItem => item.Nombres)
+                        @Html.LabelFor(modelItem => item.Dni, item.Dni, new { @class = "edit-mode", @id = "lblDni" })
+
+                    </td>
+                    <td style="vertical-align:middle;">
+                        <span class="display-mode">@item.NombresCompleto</span>
+                        @Html.LabelFor(modelItem => item.NombresCompleto, item.NombresCompleto, new { @class = "edit-mode" })
+                    </td>
+                    <td style="vertical-align:middle;">
+                        <span class="display-mode">@item.RazonSocial</span>
+                        @Html.LabelFor(modelItem => item.RazonSocial, item.RazonSocial, new { @class = "edit-mode" })
+                    </td>
+                    <td style="vertical-align:middle;">
+                        <span class="display-mode">@item.Puesto</span>
+                        @Html.LabelFor(modelItem => item.Puesto, item.Puesto, new { @class = "edit-mode" })
+                    </td>
+                    <td style="vertical-align:middle;">
+                        <span class="display-mode">
+                            @item.FechaPostulacion.ToString("yyyy-MM-dd")
+                        </span>
+                        @Html.LabelFor(modelItem => item.FechaPostulacion, item.FechaPostulacion.ToString("yyyy-MM-dd"), new { @class = "edit-mode" })
+
+                    </td>
+                    <td style="vertical-align:middle;">
+                        <span class="display-mode" id="lblPretencion"> @item.Pretencion</span>
+                        @Html.EditorFor(modelItem => item.Pretencion, new { htmlAttributes = new { @class = "form-control edit-mode" } })
+                    </td>
+                    <td style="vertical-align:middle;">
+                        <span class="display-mode" id="lblObservacion">@item.Observacion</span>
+                        @Html.EditorFor(modelItem => item.Observacion, new { htmlAttributes = new { @class = "form-control edit-mode" } })
+                    </td>
+
+                    <td style="font-size: 1.3em;padding-top:8px; padding-bottom:8px;vertical-align:middle;">
+                        <div style="display:inline-flex;">
+                            @if (item.Estado == "RE")
+                            {
+                                <button style="color: #006683;" id="btnAprobar" class="aprob-user display-mode button-trasparent" title="Aprobar ingreso"><i class="fa fa-check" aria-hidden="true"></i></button>
+                                <button style="color: #006683;" class="edit-user display-mode button-trasparent" title="Editar"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                            }
+                            <button style="color: #006683;" class="cancel-user edit-mode button-trasparent" title="Cancelar edición"><i class="fa fa-times" aria-hidden="true"></i></button>&nbsp;
+                            <button style="color: #006683;" class="save-user edit-mode button-trasparent" title="Guardar"><i class="fa fa-save" aria-hidden="true"></i></button>
+                        </div>
+
+                    </td>
+                </tr>
+            }
+        </table>
+        <div style="float:right;">
+            Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, estado = ViewBag.estado, cliente = ViewBag.cliente, puesto = ViewBag.puesto, filtro_por = ViewBag.filtro_por }))
+        </div>
+    </div>
+    <!--Modal aprobacion-->
+    <div id="aprobacionModal" tabindex="-1" role="dialog" aria-labelledby="tituloC" aria-hidden="true" class="modal fade text-left">
+        <div role="document" class="modal-dialog modal-dialog-confirm">
+            <div class="modal-content" style="margin-top: 100px;">
+                <div class="modal-header" style="background:#006683; color:white;">
+                    <h4 id="tituloC" class="modal-title">Confirmar aprobación</h4>
+                    <button type="button" data-dismiss="modal" aria-label="Close" style="color:red;" class="close button-trasparent"><i class="fa fa-times" aria-hidden="true"></i></button>
+                    <input type="hidden" id="hddIdPuestoCandidato" />
+                    <input type="hidden" id="hddDniCandidato" />
+                    <input type="hidden" id="hddId" />
+                    <input type="hidden" id="hddIdCliente" />
+                    <input type="hidden" id="hddNombreCandidato" />
+                    <input type="hidden" id="hddEmailCandidato" />
+                </div>
+                <div class="modal-body">
+                    <div class="forms row">
+                        <div class="form-group col-md-4" style="padding-left:0px; padding-right:15px;">
+                            <label class="control-label"> Inicio Contrato</label>
+                            <input type="text" id="txtCIniContrato" class="form-control date-picker" data-date-format="yyyy-mm-dd" data-plugin-datepicker required />
+                        </div>
+                        <div class="form-group col-md-4" style="padding-left:0px; padding-right:15px;">
+                            <label class="control-label"> Fin Contrato</label>
+                            <input type="text" id="txtCFinContrato" class="form-control date-picker" data-date-format="yyyy-mm-dd" data-plugin-datepicker required />
+                        </div>
+                        <div class="form-group col-md-4" style="padding-left:0px; padding-right:0px;">
+                            <label class="control-label"> Sueldo</label>
+                            <input type="number" id="txtCPrentencionConfirm" onkeypress="return solo_numeros(event)" class="form-control" required value="" maxlength="6" />
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div id="div_progreso" style="display:none;" class="div_progreso simple-progress">
+                        <div class="sp-item sp-item-ani1"></div>
+                        <div class="sp-item sp-item-ani2"></div>
+                        <div class="sp-item sp-item-ani3"></div>
+                        <span style="color: #822181;vertical-align: super;">Procesando...</span>
+                    </div>
+                    <div class="div_botones">
+                        <button type="button" data-dismiss="modal" class="btn btn-secondary">Cancelar</button>
+                        <button type="button" id="btnaprobar_candidato" onclick="aprobar_candidato();" class="btn btn-primary">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function activar_filtro_estado(e) {
+        if ($('#estado').val() == "") {
+            $('#estado').val("AP");
+            $(e).removeClass("disabled");
+        } else {
+            $(e).addClass("disabled");
+            $('#estado').val("");
+        }
+        $('#frmFiltro').submit();
+        return false;
+    }
+
+    window.onload = function () {
+        configurar_evento_tabla_postulantes();
+    }
+
+    function configurar_evento_tabla_postulantes() {
+        $('.edit-mode').hide();
+        $('.edit-user, .cancel-user').unbind();
+        $('.edit-user, .cancel-user').on('click', function () {
+            var tr = $(this).parents('tr:first');
+            tr.find('.edit-mode, .display-mode').toggle();
+        });
+
+        $('.save-user').unbind();
+        $('.save-user').on('click', function () {
+            var tr = $(this).parents('tr:first');
+            var dni = tr.find("#lblDni").text();
+            var pretencion = tr.find("#item_Pretencion").val();
+            var observacion = tr.find("#item_Observacion").val();
+            var id = tr.find("#lblIdRequerimiento").text();
+            var data = { Accion: 2, IdRequerimiento: id, Pretencion: pretencion, Dni: dni, Observacion: observacion };
+            ajax_general("/Requerimiento/Postulantes/" + id, "POST", data, function () {
+                mostrar_msg_ok("Postulante actualizado correctamente");
+                tr.find("#lblPretencion").text(pretencion);
+                tr.find("#lblObservacion").text(observacion);
+                tr.find('.edit-mode, .display-mode').toggle();
+            });
+
+        });
+
+        $('.aprob-user').unbind();
+        $('.aprob-user').on('click', function () {
+            $('#aprobacionModal').modal('show');
+            filaAprobacion = $(this).parents('tr:first');
+            $('#hddDniCandidato').val(filaAprobacion.find("#lblDni").text());
+            $('#hddIdPuestoCandidato').val(filaAprobacion.find("#item_IdPuesto").val());
+            $('#txtCPrentencionConfirm').val(parseInt(filaAprobacion.find("#lblPretencion").text()));
+            $('#hddId').val(parseInt(filaAprobacion.find("#lblIdRequerimiento").text()));
+            $('#hddIdCliente').val(parseInt(filaAprobacion.find("#item_IdCliente").val()));
+            $('#hddNombreCandidato').val(parseInt(filaAprobacion.find("#item_Nombres").val()));
+            $('#hddEmailCandidato').val(parseInt(filaAprobacion.find("#item_Email").val()));
+        });
+    }
+
+    function aprobar_candidato() {
+        if ($('#txtCIniContrato').val() == '') {
+            $('#txtCIniContrato').focus();
+            return;
+        }
+        var data = { Accion: 4, IdRequerimiento: $('#hddId').val(), Dni: $('#hddDniCandidato').val(), Pretencion: $('#txtCPrentencionConfirm').val(), FechaIniContrato: $('#txtCIniContrato').val(), FechaFinContrato: $('#txtCFinContrato').val(), IdPuesto: $('#hddIdPuestoCandidato').val(), IdCliente: $('#hddIdCliente').val(), Nombres: $('#hddNombreCandidato').val(), Email: $('#hddEmailCandidato').val() };
+        ajax_general_postulante("/Requerimiento/Postulantes/" + $('#hddId').val(), "POST", data, function () {
+            mostrar_msg_ok("Postulante aprobado correctamente");
+            filaAprobacion.find("#ic_estado").removeClass("fa-cog").addClass("fa-check").attr("title", "Aprobado");
+            filaAprobacion.find(".aprob-user, .edit-user").hide();
+            $('#aprobacionModal').modal('hide');
+            $('#frmFiltro').submit();
+        });
+    }
+
+    function mostrar_progreso() {
+        $('.div_progreso').show();
+        $('.div_botones').hide();
+    }
+
+    function ocultar_progreso() {
+        $('.div_progreso').hide();
+        $('.div_botones').show();
+    }
+
+    function ajax_general_postulante(url, tipo, Data, callback) {
+        mostrar_progreso();
+        return $.ajax({
+            type: tipo,
+            url: url,
+            data: Data,
+            dataType: 'json',
+            error: function (xhr, error) {
+                ocultar_progreso();
+                alert(error + " " + xhr.status);
+            },
+            success: function (response) {
+                ocultar_progreso();
+                if (response.Success)
+                    callback(response.Data);
+                else
+                    alert(response.Message);
+            }
+        });
+    }
+</script>

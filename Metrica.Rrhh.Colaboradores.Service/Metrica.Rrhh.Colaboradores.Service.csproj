@@ -66,6 +66,10 @@
     <Compile Include="REST\Interfaz\IPuestoService.cs" />
     <Compile Include="REST\Interfaz\ISeguridadService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="REST\PuestoService.cs" />
+    <Compile Include="REST\SeguridadService.cs" />
+    <Compile Include="SOA\ClienteService.cs" />
+    <Compile Include="SOA\EmpleadoService.cs" />
     <Compile Include="SOA\Interfaz\ICandidatoService.cs" />
     <Compile Include="SOA\Interfaz\IClienteService.cs" />
     <Compile Include="SOA\Interfaz\IEmpleadoService.cs" />
@@ -73,12 +77,18 @@
     <Compile Include="SOA\Interfaz\IPostulacionService.cs" />
     <Compile Include="SOA\Interfaz\IRequerimientoService.cs" />
     <Compile Include="SOA\Interfaz\IUtilService.cs" />
+    <Compile Include="SOA\NotificacionService.cs" />
+    <Compile Include="SOA\RequerimientoService.cs" />
+    <Compile Include="SOA\UtilService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Common\" />
+    <Folder Include="DLL\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Metrica.Rrhh.Colaboradores.BL\Metrica.Rrhh.Colaboradores.BL.csproj">
       <Project>{3c2e9f5e-cc3a-4afd-9ef4-888c4e4253da}</Project>
