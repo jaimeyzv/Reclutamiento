@@ -16,6 +16,7 @@ namespace Metrica.Rrhh.Colaboradores.Entity.Model
         public string Contacto { get; set; }
         public string TelefonoContacto { get; set; }
         public string EmailContacto { get; set; }
+        public string Estado { get; set; }
         public override string ToString()
         {
             //return base.ToString();

@@ -211,6 +211,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PostulacionController.cs" />
     <Compile Include="Controllers\PuestoController.cs" />
+    <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\RequerimientoController.cs" />
     <Compile Include="Controllers\SeguridadController.cs" />
     <Compile Include="Global.asax.cs">
@@ -220,6 +221,7 @@
     <Compile Include="Models\EmpleadoViewModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\PostulacionViewModel.cs" />
+    <Compile Include="Models\ClienteViewModel.cs" />
     <Compile Include="Models\RequerimientoViewModel.cs" />
     <Compile Include="Models\SeguridadViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -456,6 +458,10 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Views\Candidato\Create.cshtml" />
+    <Content Include="Views\Candidato\Edit.cshtml" />
+    <Content Include="Views\Candidato\Index.cshtml" />
+    <Content Include="Views\Candidato\_Form.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -493,6 +499,11 @@
     <Content Include="Views\Puesto\Create.cshtml" />
     <Content Include="Views\Puesto\_Form.cshtml" />
     <Content Include="Views\Puesto\Edit.cshtml" />
+    <Content Include="Views\Cliente\Create.cshtml" />
+    <Content Include="Views\Cliente\Edit.cshtml" />
+    <Content Include="Views\Cliente\Index.cshtml" />
+    <Content Include="Views\Cliente\Postulantes.cshtml" />
+    <Content Include="Views\Cliente\_Form.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

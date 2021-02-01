@@ -64,8 +64,8 @@
                         Dirección
                     </th>
                     @*<th>
-                        Observación
-                    </th>*@
+                            Observación
+                        </th>*@
                     <th>
                         Fecha Registro
                     </th>
@@ -74,48 +74,48 @@
             </thead>
 
             @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    <div style="display:inline; font-size: 1.3em;padding-top:8px; padding-bottom:8px;">
-                        @if (item.Estado == "RE")
-                    {
-                        <i class="fa fa-cog" aria-hidden="true" title="Candidato"></i>
-                }
-                else
-                {
-                    <i class="fa fa-check" aria-hidden="true" title="Empleado"></i>
+            {
+                <tr>
+                    <td>
+                        <div style="display:inline; font-size: 1.3em;padding-top:8px; padding-bottom:8px;">
+                            @if (item.Estado == "RE")
+                            {
+                                <i class="fa fa-cog" aria-hidden="true" title="Candidato"></i>
+                            }
+                            else
+                            {
+                                <i class="fa fa-check" aria-hidden="true" title="Empleado"></i>
+                            }
+                        </div>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Dni)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NombresCompleto)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Puesto)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TelefonoPersonal)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Direccion)
+                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.Observacion)
+                        </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaCreacion)
+                    </td>
+                    <td style="font-size: 1.3em;padding-top:8px; padding-bottom:8px;color:#006683;">
+                        <a href="@Url.Action("Edit", new { id = item.Dni })" title="Editar candidato"><i class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp;
+                        @*<a href="@Url.Action("Details", new { id = item.Dni })" title="Ver detalle requerimiento"><i class="fa fa-list-alt" aria-hidden="true"></i></a>&nbsp;*@
+                        <a href="@Url.Action("Delete", new { id = item.Dni })" onclick="return confirmar_eliminar('@item.NombresCompleto');" title="Eliminar candidato"><i class="fa fa-times" aria-hidden="true"></i></a>
+                    </td>
+                </tr>
             }
-                    </div>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Dni)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NombresCompleto)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Puesto)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TelefonoPersonal)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Direccion)
-                </td>
-                @*<td>
-                    @Html.DisplayFor(modelItem => item.Observacion)
-                </td>*@
-                <td>
-                    @Html.DisplayFor(modelItem => item.FechaCreacion)
-                </td>
-                <td style="font-size: 1.3em;padding-top:8px; padding-bottom:8px;color:#006683;">
-                    <a href="@Url.Action("Edit", new { id = item.Dni })" title="Editar candidato"><i class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp;
-                    @*<a href="@Url.Action("Details", new { id = item.Dni })" title="Ver detalle requerimiento"><i class="fa fa-list-alt" aria-hidden="true"></i></a>&nbsp;*@
-                    <a href="@Url.Action("Delete", new { id = item.Dni })" onclick="return confirmar_eliminar('@item.NombresCompleto');" title="Eliminar candidato"><i class="fa fa-times" aria-hidden="true"></i></a>
-                </td>
-            </tr>
-    }
         </table>
         <div style="float:right;">
             Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount

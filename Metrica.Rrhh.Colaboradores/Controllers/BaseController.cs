@@ -94,6 +94,10 @@ namespace Metrica.Rrhh.Colaboradores.Controllers
             return Constantes.RutaRest + "PuestoService.svc/";
         }
 
+         protected string ObtenerURLClienteService()
+        {
+            return Constantes.RutaRest + "ClienteService.svc/";
+        }
         protected List<PuestoModel> ListarPuestos(string estado = "", string filtro = "")
         {
             List<PuestoModel> puestos = new List<PuestoModel>();

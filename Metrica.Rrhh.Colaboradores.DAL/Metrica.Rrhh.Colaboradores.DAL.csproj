@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DCandidato.cs" />
     <Compile Include="DEmpleado.cs" />
     <Compile Include="DPuesto.cs" />
     <Compile Include="DCliente.cs" />

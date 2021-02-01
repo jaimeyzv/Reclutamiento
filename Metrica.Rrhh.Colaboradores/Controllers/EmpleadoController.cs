@@ -20,32 +20,17 @@ namespace Metrica.Rrhh.Colaboradores.Controllers
         // GET: Empleado
         public ActionResult Index(string estado, string cliente, string puesto, string filtro_por, int? page)
         {
-            try
+             try
             {
-                if (string.IsNullOrEmpty(puesto))
-                    puesto = "0";
-                if (string.IsNullOrEmpty(cliente))
-                    cliente = "0";
                 ViewBag.estado = estado;
-                ViewBag.puesto = puesto;
-                ViewBag.cliente = cliente;
                 ViewBag.filtro_por = filtro_por;
                 int paginaActual = (page ?? 1);
-                ViewBag.puestos = new SelectList(ListarPuestos(), "Id", "Nombre");
-                ViewBag.clientes = new SelectList(ListarClientes(), "Id", "RazonSocial");
-                using (WSEmpleado.IEmpleadoServiceChannel wsCliente = ObtenerServicioEmpleado())
-                    return View(new PagedList.PagedList<EmpleadoModel>(wsCliente.Listar(new EmpleadoDTO
-                    {
-                        Cliente = new ClienteDTO { Id = int.Parse(cliente) },
-                        Estado = estado,
-                        IdPuesto = int.Parse(puesto),
-                        Observacion = filtro_por == "" ? null : filtro_por
-                    }).AsModel(), paginaActual, 5));
+                return View(new PagedList.PagedList<PuestoModel>(ListarPuestos(estado, filtro_por), paginaActual, 5));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
-                return View(new PagedList.PagedList<EmpleadoModel>(new List<EmpleadoModel>(), 1, 1));
+                return View(new PagedList.PagedList<PuestoModel>(new List<PuestoModel>(), 1, 1));
             }
         }
 
